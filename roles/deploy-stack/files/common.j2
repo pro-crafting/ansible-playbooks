@@ -4,13 +4,19 @@ services:
     image: "{{ service.image }}:{{ service.tag }}"
     networks:
       - traefik
+{% if service.volumes is defined %}
+    volumes:
+{% for volume in service.volumes %}
+        - "{{ volume }}"
+{% endfor %}
+{% endif %}
     deploy:
-      replicas: 2
+      replicas: {{ service.replicas | default(2) }}
       placement:
         constraints:
           - "{{ service.constraint | default('node.role == worker') }}"
-      labels:
 {% if service.labels is defined %}
+      labels:
 {% for label in service.labels %}
         - "{{ label }}"
 {% endfor %}

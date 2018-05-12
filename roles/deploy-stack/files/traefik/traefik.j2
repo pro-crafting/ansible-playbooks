@@ -41,19 +41,6 @@ services:
       placement:
         constraints:
           - node.role == manager
-  visualizer:
-    image: dockersamples/visualizer:stable
-    ports:
-      - 8081:8080
-    networks:
-      - traefik
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
-    deploy:
-      placement:
-        constraints:
-          - node.role == manager
-
 secrets:
   DO_AUTH_TOKEN:
     external: true

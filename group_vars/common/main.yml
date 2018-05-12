@@ -2,6 +2,7 @@
 versions:
   traefik: "v1.6.0"
   record_jar_converter: "1.0.0-SNAPSHOT"
+  visualizer: "stable"
 
 stack:
   name: "common"
@@ -32,4 +33,17 @@ service_definitions:
      - "traefik.port=8080"
      - "traefik.backend=record-jar-converter"
      - "traefik.frontend.rule=Host:rjc.pro-crafting.com;PathPrefix:/v1/record"
+     - "traefik.docker.network={{ stack.name }}_traefik"
+  visualizer:
+    name: visualizer
+    image: dockersamples/visualizer
+    tag: "{{ versions.visualizer }}"
+    constraint: "node.role == manager"
+    replicas: 1
+    volumes:
+     - "/var/run/docker.sock:/var/run/docker.sock"
+    labels:
+     - "traefik.port=8080"
+     - "traefik.backend=visualizer"
+     - "traefik.frontend.rule=Host:visualizer.pro-crafting.com"
      - "traefik.docker.network={{ stack.name }}_traefik"

@@ -8,6 +8,7 @@
 #    image: postremus/record-jar-converter-rest-api
 #    version: {{ versions.record_jar_converter }}
 #    constraint: default node.role == worker, optional)
+#    replicas: 1 (default 2, optional)
 #    labels:
 #     - "traefik.port=8080"
 #     - "traefik.backend=record-jar-converter-rest-api"

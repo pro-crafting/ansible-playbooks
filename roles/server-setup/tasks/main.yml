@@ -2,3 +2,7 @@
 - name: Install all needed packages
   include: install.yml
   tags: ["install"]
+
+- name: Create htpasswd files
+  include: htpasswd.yml
+  tags: ["install"]

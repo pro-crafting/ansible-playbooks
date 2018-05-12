@@ -2,5 +2,5 @@
 - name: Install packages
   apt:
     update_cache: yes
-    name: [dnsutils, curl]
+    name: [dnsutils, curl, python-passlib]
     state: present
