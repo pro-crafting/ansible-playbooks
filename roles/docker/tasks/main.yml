@@ -1,0 +1,16 @@
+---
+- name: Uninstall existing obsolete docker packages
+  include: uninstall.yml
+  tags: ["uninstall"]
+
+- name: install docker-ce
+  include: install.yml
+  tags: ["install"]
+
+- name: Setup Swarm
+  include: swarm.yml
+  tags: ["swarm"]
+
+- name: Create Secrets
+  include: secret.yml
+  tags: ["secret"]

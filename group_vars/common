@@ -1,0 +1,35 @@
+---
+versions:
+  traefik: "v1.6.0"
+  record_jar_converter: "1.0.0-SNAPSHOT"
+
+stack:
+  name: "common"
+
+service_definitions:
+  traefik:
+    name: traefik
+    template_name: "traefik/traefik"
+    tag: "{{ versions.traefik }}"
+    files:
+      - name: "traefik/acme.json"
+        overwrite: false
+        mode: "0600"
+  record_jar_converter_rest_api:
+    name: record-jar-converter-rest-api
+    image: postremus/record-jar-converter-rest-api
+    tag: "{{ versions.record_jar_converter }}"
+    labels:
+     - "traefik.port=8080"
+     - "traefik.backend=record-jar-converter-rest-api"
+     - "traefik.frontend.rule=Host:rjc.pro-crafting.com;PathPrefix:/record-jar-converter-rest-api"
+     - "traefik.docker.network={{ stack.name }}_traefik"
+  record_jar_converter:
+    name: record-jar-converter
+    image: postremus/record-jar-converter-web
+    tag: "{{ versions.record_jar_converter }}"
+    labels:
+     - "traefik.port=8080"
+     - "traefik.backend=record-jar-converter"
+     - "traefik.frontend.rule=Host:rjc.pro-crafting.com;PathPrefix:/v1/record"
+     - "traefik.docker.network={{ stack.name }}_traefik"

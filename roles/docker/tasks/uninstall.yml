@@ -1,0 +1,5 @@
+---
+- name: Uninstall deprecated docker packages
+  apt:
+    name: [docker, docker-enginge, docker.io]
+    state: absent

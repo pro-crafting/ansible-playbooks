@@ -1,0 +1,10 @@
+---
+[docker-swarm-manager]
+tm.pro-crafting.com
+
+[docker-swarm-worker]
+at[1:2].pro-crafting.com
+
+[common:children]
+docker-swarm-manager
+docker-swarm-worker

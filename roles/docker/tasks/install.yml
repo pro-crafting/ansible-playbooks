@@ -1,0 +1,46 @@
+---
+- name: Install docker - install utilities needed for installation
+  apt:
+    update_cache: yes
+    name: [apt-transport-https, ca-certificates, curl, gnupg2, software-properties-common]
+    state: present
+
+- name: Add Docker apt key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
+    state: present
+  register: add_repository_key
+  ignore_errors: true
+
+- name: Add docker apt repo
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/debian {{ansible_lsb.codename}} stable"
+    update_cache: yes
+
+- name: Install docker-ce
+  apt:
+    name: docker-ce
+    state: latest
+
+- name: Ensure Docker service is started
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Install Docker Compose
+  get_url:
+    url: https://github.com/docker/compose/releases/download/1.21.2/docker-compose-Linux-x86_64
+    dest: /usr/local/bin/docker-compose
+    mode: 0755
+
+- name: Install pip
+  easy_install:
+    name: pip
+    state: present
+
+- name: Install docker python modules
+  pip:
+    name: [docker]
+    state: present

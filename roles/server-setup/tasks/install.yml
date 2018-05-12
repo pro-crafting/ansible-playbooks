@@ -1,0 +1,6 @@
+---
+- name: Install packages
+  apt:
+    update_cache: yes
+    name: [dnsutils, curl]
+    state: present

@@ -1,0 +1,4 @@
+---
+- name: Install all needed packages
+  include: install.yml
+  tags: ["install"]

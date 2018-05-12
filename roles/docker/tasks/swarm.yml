@@ -1,0 +1,55 @@
+---
+# TODO: Figure out if current swarm manager nodes are equal to manager nodes from inventory
+# TODO: Is worker node really connected to the right swarm?
+
+- name: Figure out if any of the intended swarm managers is already active
+  shell: "docker info --format '{{ '{{' }} json .Swarm.LocalNodeState {{ '}}' }}'"
+  register: local_node_state
+  when: "'docker-swarm-manager' in group_names"
+
+- set_fact:
+    active_manager_count: "0"
+  delegate_to: "{{groups['docker-swarm-manager'][0]}}"
+  delegate_facts: true
+  run_once: true
+
+- name: Count up active managers
+  set_fact:
+    active_manager_count: "'{{hostvars[groups['docker-swarm-manager'][0]]['active_manager_count']}}' + 1"
+  when: "'docker-swarm-manager' in group_names and
+          local_node_state.stdout == '\"active\"'"
+  delegate_to: "{{groups['docker-swarm-manager'][0]}}"
+  delegate_facts: true
+
+- name: Init swarm, if no manager node was found
+  shell: |
+    docker swarm init --advertise-addr {{swarm.advertise_addr}}
+  when: "hostvars[groups['docker-swarm-manager'][0]]['active_manager_count'] == '0' and
+         'docker-swarm-manager' in group_names"
+  run_once: true
+
+- name: Get Swarm manager join token
+  shell: docker swarm join-token --rotate manager
+  when: "'docker-swarm-manager' in group_names"
+  register: join_manager_token
+  delegate_to: "{{groups['docker-swarm-manager'][0]}}"
+  delegate_facts: true
+  run_once: true
+
+- name: Force other potential managers to be my 'friends'
+  shell: "{{hostvars[groups['docker-swarm-manager'][0]].join_manager_token.stdout_lines[4]}}"
+  when: "'docker-swarm-manager' in group_names and
+         local_node_state.stdout == 'inactive'"
+
+- name: Get Swarm worker join token
+  shell: docker swarm join-token --rotate worker
+  when: "'docker-swarm-manager' in group_names"
+  register: join_worker_token
+  delegate_to: "{{groups['docker-swarm-manager'][0]}}"
+  delegate_facts: true
+  run_once: true
+
+- name: Force workers to be my servants
+  shell: "{{hostvars[groups['docker-swarm-manager'][0]].join_worker_token.stdout_lines[4]}} || true"
+  when: "'docker-swarm-worker' in group_names"
+  ignore_errors: yes

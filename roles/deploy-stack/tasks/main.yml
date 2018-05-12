@@ -1,0 +1,5 @@
+---
+- name: Deploy stack service
+  include: deploy.yml
+  tags: ["deploy"]
+  when: "'docker-swarm-manager' in group_names"

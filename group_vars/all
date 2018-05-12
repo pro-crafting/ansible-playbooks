@@ -1,0 +1,14 @@
+---
+#Available service definitions options
+#service_definitions:
+#  record-jar-converter-rest-api:
+#    name: record-jar-converter
+#    template_name: traefik (default common, optional)
+#    files: (optional)
+#    image: postremus/record-jar-converter-rest-api
+#    version: {{ versions.record_jar_converter }}
+#    constraint: default node.role == worker, optional)
+#    labels:
+#     - "traefik.port=8080"
+#     - "traefik.backend=record-jar-converter-rest-api"
+#     - "traefik.frontend.rule=PathPrefix:/record-jar-converter-rest-api/"

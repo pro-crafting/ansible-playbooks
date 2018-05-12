@@ -1,0 +1,62 @@
+#TODO: Do DNS Challenge once traefik supports docker secrets
+version: '3.4'
+services:
+  traefik:
+    image: traefik:{{ service.tag }}
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - traefik
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /opt/docker/services/traefik/acme.json:/acme.json
+    command:
+      - "--api"
+      - "--entrypoints=Name:http Address::80 Redirect.EntryPoint:https"
+      - "--entrypoints=Name:https Address::443 TLS"
+      - "--defaultentrypoints=http,https"
+      - "--docker"
+      - "--docker.swarmmode"
+      - "--debug"
+      - "--loglevel=errer"
+      - "--acme"
+      - "--acme.email=postremus1996@googlemail.com"
+      - "--acme.storage=/acme.json"
+      - "--acme.onHostRule=true"
+      #- "--acme.dnschallenge=true"
+      #- "--acme.dnschallenge.provider=digitalocean"
+      - "--acme.httpchallenge"
+      - "--acme.httpchallenge.entrypoint=http"
+      - "--acme.entrypoint=https"
+      - "--acme.acmelogging"
+    environment:
+      DO_AUTH_TOKEN: /run/secrets/DO_AUTH_TOKEN
+    deploy:
+      labels:
+        - "traefik.docker.network={{ stack.name }}_traefik"
+        - "traefik.frontend.rule=Host:monitor.pro-crafting.com"
+        - "traefik.backend=traefik-dashboard"
+        - "traefik.port=8080"
+      placement:
+        constraints:
+          - node.role == manager
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports:
+      - 8081:8080
+    networks:
+      - traefik
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+
+secrets:
+  DO_AUTH_TOKEN:
+    external: true
+networks:
+  traefik:
+    driver: overlay
