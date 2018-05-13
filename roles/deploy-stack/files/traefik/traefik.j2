@@ -38,6 +38,8 @@ services:
         - "traefik.frontend.rule=Host:monitor.pro-crafting.com"
         - "traefik.backend=traefik-dashboard"
         - "traefik.port=8080"
+        - "traefik.frontend.headers.STSSeconds=315360000"
+        - "traefik.frontend.headers.STSPreload=true"
       placement:
         constraints:
           - node.role == manager

@@ -25,6 +25,8 @@ service_definitions:
      - "traefik.backend=record-jar-converter-rest-api"
      - "traefik.frontend.rule=Host:rjc.pro-crafting.com;PathPrefix:/record-jar-converter-rest-api"
      - "traefik.docker.network={{ stack.name }}_traefik"
+     - "traefik.frontend.headers.STSSeconds=315360000"
+     - "traefik.frontend.headers.STSPreload=true"
   record_jar_converter:
     name: record-jar-converter
     image: postremus/record-jar-converter-web
@@ -34,6 +36,8 @@ service_definitions:
      - "traefik.backend=record-jar-converter"
      - "traefik.frontend.rule=Host:rjc.pro-crafting.com;PathPrefix:/v1/record"
      - "traefik.docker.network={{ stack.name }}_traefik"
+     - "traefik.frontend.headers.STSSeconds=315360000"
+     - "traefik.frontend.headers.STSPreload=true"
   visualizer:
     name: visualizer
     image: dockersamples/visualizer
@@ -47,3 +51,5 @@ service_definitions:
      - "traefik.backend=visualizer"
      - "traefik.frontend.rule=Host:visualizer.pro-crafting.com"
      - "traefik.docker.network={{ stack.name }}_traefik"
+     - "traefik.frontend.headers.STSSeconds=315360000"
+     - "traefik.frontend.headers.STSPreload=true"
