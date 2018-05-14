@@ -1,7 +1,7 @@
 ---
 versions:
   traefik: "v1.6.0"
-  record_jar_converter: "1.0.0-SNAPSHOT"
+  record_jar_converter: "1.0.0"
   visualizer: "stable"
 
 stack:
