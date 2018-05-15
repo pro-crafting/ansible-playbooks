@@ -1,6 +1,6 @@
 ---
 versions:
-  traefik: "v1.6.0"
+  traefik: "v1.6.1"
   record_jar_converter: "1.0.0"
   visualizer: "stable"
 
