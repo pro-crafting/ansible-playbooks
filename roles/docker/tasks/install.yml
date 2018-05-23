@@ -23,6 +23,7 @@
     name: docker-ce
     state: latest
 
+#TODO: Use handler
 - name: Ensure Docker service is started
   service:
     name: docker

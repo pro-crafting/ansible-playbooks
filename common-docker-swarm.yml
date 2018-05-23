@@ -2,7 +2,7 @@
 - hosts: common
   user: root
   roles:
-    - docker
+    - { role: docker, tags: ["docker"] }
     - { role: deploy-stack, vars: {service: "{{ service_definitions.traefik }}"}, tags: ["deploy", "traefik"] }
     - { role: deploy-stack, vars: {service: "{{ service_definitions.record_jar_converter_rest_api }}"}, tags: ["deploy", "record-jar-converter-rest-api"] }
     - { role: deploy-stack, vars: {service: "{{ service_definitions.record_jar_converter }}"}, tags: ["deploy", "record-jar-converter"] }

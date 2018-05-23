@@ -2,7 +2,7 @@
 # TODO: Figure out if current swarm manager nodes are equal to manager nodes from inventory
 # TODO: Is worker node really connected to the right swarm?
 
-- name: Figure out if any of the intended swarm managers is already active
+- name: Figure out if any of the intended swarm managers is already an active manager
   shell: "docker info --format '{{ '{{' }} json .Swarm.LocalNodeState {{ '}}' }}'"
   register: local_node_state
   when: "'docker-swarm-manager' in group_names"
