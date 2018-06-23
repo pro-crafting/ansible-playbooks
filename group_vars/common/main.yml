@@ -1,6 +1,6 @@
 ---
 versions:
-  traefik: "v1.6.2"
+  traefik: "v1.6.4"
   record_jar_converter: "1.1.0"
   visualizer: "stable"
 
@@ -27,6 +27,7 @@ service_definitions:
      - "traefik.docker.network={{ stack.name }}_traefik"
      - "traefik.frontend.headers.STSSeconds=315360000"
      - "traefik.frontend.headers.STSPreload=true"
+     - "traefik.frontend.headers.customResponseHeaders=Access-Control-Allow-Origin:*"
   record_jar_converter:
     name: record-jar-converter
     image: postremus/record-jar-converter-web
