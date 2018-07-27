@@ -7,49 +7,70 @@
   register: local_node_state
   when: "'docker-swarm-manager' in group_names"
 
-- set_fact:
-    active_manager_count: "0"
-  delegate_to: "{{groups['docker-swarm-manager'][0]}}"
-  delegate_facts: true
-  run_once: true
-
-- name: Count up active managers
+- name: Get active manager node
   set_fact:
-    active_manager_count: "'{{hostvars[groups['docker-swarm-manager'][0]]['active_manager_count']}}' + 1"
+    active_manager_node: "{{ inventory_hostname }}"
   when: "'docker-swarm-manager' in group_names and
-          local_node_state.stdout == '\"active\"'"
+          local_node_state.stdout == '\"active\"' and
+          groups['docker-swarm-manager'][0]['active_manager_node'] is undefined"
   delegate_to: "{{groups['docker-swarm-manager'][0]}}"
   delegate_facts: true
 
 - name: Init swarm, if no manager node was found
   shell: |
     docker swarm init --advertise-addr {{swarm.advertise_addr}}
-  when: "hostvars[groups['docker-swarm-manager'][0]]['active_manager_count'] == '0' and
+  when: "hostvars[groups['docker-swarm-manager'][0]]['active_manager_node'] is undefined and
          'docker-swarm-manager' in group_names"
   run_once: true
 
+- name: Get now active manager node
+  set_fact:
+    active_manager_node: "{{ inventory_hostname }}"
+  when: "'docker-swarm-manager' in group_names and
+          local_node_state.stdout == '\"active\"' and
+          hostvars[groups['docker-swarm-manager'][0]]['active_manager_node'] is undefined"
+  delegate_to: "{{groups['docker-swarm-manager'][0]}}"
+  delegate_facts: true
+
 - name: Get Swarm manager join token
   shell: docker swarm join-token --rotate manager
-  when: "'docker-swarm-manager' in group_names"
   register: join_manager_token
-  delegate_to: "{{groups['docker-swarm-manager'][0]}}"
+  delegate_to: "{{ hostvars[groups['docker-swarm-manager'][0]]['active_manager_node'] }}"
   delegate_facts: true
   run_once: true
 
+- debug:
+    msg: "{{inventory_hostname }}"
+
+- debug:
+    msg: "{{ hostvars[groups['docker-swarm-manager'][0]]['active_manager_node'] }}"
+
+- debug:
+    msg: "{{ hostvars[hostvars[groups['docker-swarm-manager'][0]]['active_manager_node']]['join_manager_token'] }}"
+
 - name: Force other potential managers to be my 'friends'
-  shell: "{{hostvars[groups['docker-swarm-manager'][0]].join_manager_token.stdout_lines[4]}}"
+  shell: "{{ hostvars[hostvars[groups['docker-swarm-manager'][0]]['active_manager_node']].join_manager_token.stdout_lines[4] }}"
   when: "'docker-swarm-manager' in group_names and
-         local_node_state.stdout == 'inactive'"
+         local_node_state.stdout == '\"inactive\"'"
 
 - name: Get Swarm worker join token
   shell: docker swarm join-token --rotate worker
   when: "'docker-swarm-manager' in group_names"
   register: join_worker_token
-  delegate_to: "{{groups['docker-swarm-manager'][0]}}"
+  delegate_to: "{{ hostvars[groups['docker-swarm-manager'][0]]['active_manager_node'] }}"
   delegate_facts: true
   run_once: true
 
+- debug:
+    msg: "{{inventory_hostname }}"
+
+- debug:
+    msg: "{{ hostvars[groups['docker-swarm-manager'][0]]['active_manager_node'] }}"
+
+- debug:
+    msg: "{{ hostvars[hostvars[groups['docker-swarm-manager'][0]]['active_manager_node']]['join_manager_token'] }}"
+
 - name: Force workers to be my servants
-  shell: "{{hostvars[groups['docker-swarm-manager'][0]].join_worker_token.stdout_lines[4]}} || true"
+  shell: "{{ hostvars[hostvars[groups['docker-swarm-manager'][0]]['active_manager_node']].join_worker_token.stdout_lines[4] }} || true"
   when: "'docker-swarm-worker' in group_names"
   ignore_errors: yes

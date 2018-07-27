@@ -22,3 +22,4 @@
 
 - name: Update Service
   shell: docker stack deploy -c "{{ docker_service_dir }}"/"{{ service.name }}"/"{{ service.name }}".yml "{{ stack.name }}"
+  run_once: true

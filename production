@@ -1,9 +1,9 @@
 ---
 [docker-swarm-manager]
-tm.pro-crafting.com
+tm[1:2].pro-crafting.com
 
 [docker-swarm-worker]
-at[3:4].pro-crafting.com
+at[1:2].pro-crafting.com
 
 [common:children]
 docker-swarm-manager
