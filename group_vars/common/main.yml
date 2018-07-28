@@ -9,17 +9,36 @@ service_definitions:
       - name: "traefik/acme.json"
         overwrite: false
         mode: "0600"
+  visualizer:
+    name: visualizer
+    image: dockersamples/visualizer
+    tag: "{{ versions.visualizer }}"
+    constraints:
+    - "node.role == manager"
+    replicas: 1
+    volumes:
+    - "/var/run/docker.sock:/var/run/docker.sock"
+    features:
+    - "secure"
+    labels:
+    - "traefik.port=8080"
+    - "traefik.backend=visualizer-{{env}}"
+    - "traefik.frontend.rule={{ frontend_rules.visualizer }}"
+    - "traefik.docker.network={{ traefik_network }}"
   record_jar_converter_rest_api:
     name: record-jar-converter-rest-api
     image: postremus/record-jar-converter-rest-api
     tag: "{{ versions.record_jar_converter }}"
+    constraints:
+      - "node.role == worker"
+      - "node.labels.environment == {{ env }}"
     features:
      - "secure"
     labels:
      - "traefik.port=8043"
-     - "traefik.backend=record-jar-converter-rest-api"
+     - "traefik.backend=record-jar-converter-rest-api-{{env}}"
      - "traefik.frontend.rule={{ frontend_rules.record_jar_converter_rest_api }}"
-     - "traefik.docker.network={{ stack.name }}_traefik"
+     - "traefik.docker.network={{ traefik_network }}"
      - "traefik.frontend.headers.customResponseHeaders=Access-Control-Allow-Origin:*"
   record_jar_converter:
     name: record-jar-converter
@@ -27,27 +46,11 @@ service_definitions:
     tag: "{{ versions.record_jar_converter }}"
     constraints:
       - "node.role == worker"
-      - "node.labels.environment={{ environment }}"
+      - "node.labels.environment == {{ env }}"
     features:
      - "secure"
     labels:
      - "traefik.port=8080"
-     - "traefik.backend=record-jar-converter"
+     - "traefik.backend=record-jar-converter-{{env}}"
      - "traefik.frontend.rule={{ frontend_rules.record_jar_converter }}"
-     - "traefik.docker.network={{ stack.name }}_traefik"
-  visualizer:
-    name: visualizer
-    image: dockersamples/visualizer
-    tag: "{{ versions.visualizer }}"
-    constraints:
-      - "node.role == manager"
-    replicas: 1
-    volumes:
-     - "/var/run/docker.sock:/var/run/docker.sock"
-    features:
-     - "secure"
-    labels:
-     - "traefik.port=8080"
-     - "traefik.backend=visualizer"
-     - "traefik.frontend.rule={{ frontend_rules.visualizer }}"
-     - "traefik.docker.network={{ stack.name }}_traefik"
+     - "traefik.docker.network={{ traefik_network }}"

@@ -18,11 +18,9 @@ services:
 {% for constraint in service.constraints %}
           - "{{ constraint }}"
 {% endfor %}
-{% endif %}
-{% if service.constraints is not defined %}
+{% else %}
           - node.role == worker
 {% endif %}
-          - "{{ service.constraint | default('node.role == worker') }}"
       labels:
 {% if 'secure' in service.features %}
         - traefik.frontend.headers.STSSeconds=315360000

@@ -7,6 +7,8 @@ versions:
 stack:
   name: "common_prod"
 
+traefik_network: "common_prod_traefik"
+
 env: "prod"
 docker:
   node_labels:

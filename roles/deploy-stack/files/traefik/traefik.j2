@@ -8,6 +8,7 @@ services:
       - 443:443
     networks:
       - traefik
+      - common_dev_traefik
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /opt/docker/services/traefik/acme.json:/acme.json
@@ -34,7 +35,7 @@ services:
       DO_AUTH_TOKEN: /run/secrets/DO_AUTH_TOKEN
     deploy:
       labels:
-        - "traefik.docker.network={{ stack.name }}_traefik"
+        - "traefik.docker.network={{ traefik_network }}"
         - "traefik.frontend.rule={{ frontend_rules.traefik }}"
         - "traefik.backend=traefik-dashboard"
         - "traefik.port=8080"
@@ -49,3 +50,6 @@ secrets:
 networks:
   traefik:
     driver: overlay
+  common_dev_traefik:
+    external:
+      name: common_dev_traefik

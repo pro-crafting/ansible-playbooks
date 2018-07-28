@@ -10,7 +10,7 @@ docker-swarm-worker-dev
 tm[1:1]-dev.pro-crafting.com
 
 [docker-swarm-worker-dev]
-at[1:2]-dev.pro-crafting.com
+at[1:1]-dev.pro-crafting.com
 
 [common:children]
 common-dev
