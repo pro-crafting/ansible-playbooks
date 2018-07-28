@@ -1,11 +1,4 @@
 ---
-versions:
-  traefik: "v1.6.4"
-  record_jar_converter: "1.2.0"
-  visualizer: "stable"
-
-stack:
-  name: "common"
 
 service_definitions:
   traefik:
@@ -20,37 +13,41 @@ service_definitions:
     name: record-jar-converter-rest-api
     image: postremus/record-jar-converter-rest-api
     tag: "{{ versions.record_jar_converter }}"
+    features:
+     - "secure"
     labels:
-     - "traefik.port=8080"
+     - "traefik.port=8043"
      - "traefik.backend=record-jar-converter-rest-api"
-     - "traefik.frontend.rule=Host:rjc.pro-crafting.com;PathPrefix:/record-jar-converter-rest-api"
+     - "traefik.frontend.rule={{ frontend_rules.record_jar_converter_rest_api }}"
      - "traefik.docker.network={{ stack.name }}_traefik"
-     - "traefik.frontend.headers.STSSeconds=315360000"
-     - "traefik.frontend.headers.STSPreload=true"
      - "traefik.frontend.headers.customResponseHeaders=Access-Control-Allow-Origin:*"
   record_jar_converter:
     name: record-jar-converter
     image: postremus/record-jar-converter-web
     tag: "{{ versions.record_jar_converter }}"
+    constraints:
+      - "node.role == worker"
+      - "node.labels.environment={{ environment }}"
+    features:
+     - "secure"
     labels:
      - "traefik.port=8080"
      - "traefik.backend=record-jar-converter"
-     - "traefik.frontend.rule=Host:rjc.pro-crafting.com;PathPrefix:/v1/record"
+     - "traefik.frontend.rule={{ frontend_rules.record_jar_converter }}"
      - "traefik.docker.network={{ stack.name }}_traefik"
-     - "traefik.frontend.headers.STSSeconds=315360000"
-     - "traefik.frontend.headers.STSPreload=true"
   visualizer:
     name: visualizer
     image: dockersamples/visualizer
     tag: "{{ versions.visualizer }}"
-    constraint: "node.role == manager"
+    constraints:
+      - "node.role == manager"
     replicas: 1
     volumes:
      - "/var/run/docker.sock:/var/run/docker.sock"
+    features:
+     - "secure"
     labels:
      - "traefik.port=8080"
      - "traefik.backend=visualizer"
-     - "traefik.frontend.rule=Host:visualizer.pro-crafting.com"
+     - "traefik.frontend.rule={{ frontend_rules.visualizer }}"
      - "traefik.docker.network={{ stack.name }}_traefik"
-     - "traefik.frontend.headers.STSSeconds=315360000"
-     - "traefik.frontend.headers.STSPreload=true"

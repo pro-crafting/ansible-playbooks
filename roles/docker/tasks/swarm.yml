@@ -61,16 +61,13 @@
   delegate_facts: true
   run_once: true
 
-- debug:
-    msg: "{{inventory_hostname }}"
-
-- debug:
-    msg: "{{ hostvars[groups['docker-swarm-manager'][0]]['active_manager_node'] }}"
-
-- debug:
-    msg: "{{ hostvars[hostvars[groups['docker-swarm-manager'][0]]['active_manager_node']]['join_manager_token'] }}"
-
 - name: Force workers to be my servants
   shell: "{{ hostvars[hostvars[groups['docker-swarm-manager'][0]]['active_manager_node']].join_worker_token.stdout_lines[4] }} || true"
   when: "'docker-swarm-worker' in group_names"
   ignore_errors: yes
+
+- name: Create docker node labels
+  shell: "docker node update --label-add {{ item.name }}={{ item.value }} {{ ansible_hostname }}"
+  with_items: "{{ docker.node_labels }}"
+  when: "docker.node_labels is defined"
+  delegate_to: "{{ hostvars[groups['docker-swarm-manager'][0]]['active_manager_node'] }}"

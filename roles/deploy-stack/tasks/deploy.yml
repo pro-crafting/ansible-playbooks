@@ -1,15 +1,15 @@
 ---
-- name: Create directory for service definitions
+- name: "{{service.name}} - Create directory for service definitions"
   file:
     path: "{{ docker_service_dir }}/{{ service.name }}"
     state: directory
 
-- name: Copy service definition to remote
+- name: "{{service.name}} - Copy service definition to remote"
   template:
     src: "files/{{ service.template_name | default('common') }}.j2"
     dest: "{{ docker_service_dir }}/{{ service.name }}/{{ service.name }}.yml"
 
-- name: Copy additional configuration files to remote
+- name: "{{service.name}} - Copy additional configuration files to remote"
   copy:
     src: "files/{{ file.name }}"
     dest: "{{ docker_service_dir }}/{{ service.name }}/{{ file.name | basename }}"
@@ -20,6 +20,6 @@
   loop_control:
     loop_var: "file"
 
-- name: Update Service
+- name: "{{service.name}} - Update Service"
   shell: docker stack deploy -c "{{ docker_service_dir }}"/"{{ service.name }}"/"{{ service.name }}".yml "{{ stack.name }}"
   run_once: true

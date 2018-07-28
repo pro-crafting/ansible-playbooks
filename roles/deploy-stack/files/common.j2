@@ -14,13 +14,24 @@ services:
       replicas: {{ service.replicas | default(2) }}
       placement:
         constraints:
+{% if service.constraints is defined %}
+{% for constraint in service.constraints %}
+          - "{{ constraint }}"
+{% endfor %}
+{% endif %}
+{% if service.constraints is not defined %}
+          - node.role == worker
+{% endif %}
           - "{{ service.constraint | default('node.role == worker') }}"
-{% if service.labels is defined %}
       labels:
+{% if 'secure' in service.features %}
+        - traefik.frontend.headers.STSSeconds=315360000
+        - traefik.frontend.headers.STSPreload=true
+{% endif %}
 {% for label in service.labels %}
         - "{{ label }}"
 {% endfor %}
-{% endif %}
+
 
 networks:
   traefik:

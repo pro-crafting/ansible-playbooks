@@ -35,7 +35,7 @@ services:
     deploy:
       labels:
         - "traefik.docker.network={{ stack.name }}_traefik"
-        - "traefik.frontend.rule=Host:monitor.pro-crafting.com"
+        - "traefik.frontend.rule={{ frontend_rules.traefik }}"
         - "traefik.backend=traefik-dashboard"
         - "traefik.port=8080"
         - "traefik.frontend.headers.STSSeconds=315360000"
