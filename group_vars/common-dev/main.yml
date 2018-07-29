@@ -17,6 +17,9 @@ docker:
 deployments:
   - rjc
 
+replicas:
+  record_jar_converter: 1
+
 frontend_rules:
   record_jar_converter_rest_api: "Host:rjc.dev.pro-crafting.com;PathPrefix:/record-jar-converter-rest-api"
   record_jar_converter: "Host:rjc.dev.pro-crafting.com;PathPrefix:/v1/record"
