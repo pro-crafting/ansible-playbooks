@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 export
+eval "$(ssh-agent -s)"
 sudo add-apt-repository ppa:ansible/ansible-2.6 -y
 sudo apt-get update
 sudo apt-get install -y ansible
