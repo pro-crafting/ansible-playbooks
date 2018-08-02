@@ -1,0 +1,17 @@
+---
+- name: Add Users
+  user:
+    name: "{{ item.name }}"
+    group: "{{ item.primary_group }}"
+    groups: "{{ item.groups }}"
+    home: "{{ item.home }}"
+    state: present
+  loop: "{{ users }}"
+  when: "users is defined"
+
+- name: Add Authorized Keys
+  authorized_key:
+    user: "{{ item.name }}"
+    key: "{{ item.key }}"
+  loop: "{{ users }}"
+  when: "users is defined"

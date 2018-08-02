@@ -1,0 +1,8 @@
+---
+users:
+  - name: "docker"
+    primary_group: "docker"
+    groups:
+      - "docker"
+    home: "/home/docker"
+    key: "https://github.com/Postremus.keys"

@@ -1,0 +1,13 @@
+language: generic
+sudo: required
+
+before_install:
+  - export
+  - chmod +x .travis/*.sh
+  - sudo apt-get install -y ansible
+install: true
+jobs:
+  include:
+    - stage: deployment
+      script:
+        - "./.travis/cron-dev.sh"

@@ -6,3 +6,7 @@
 - name: Create htpasswd files
   include: htpasswd.yml
   tags: ["install"]
+
+- name: Create Users
+  include: users.yml
+  tags: ["install"]
