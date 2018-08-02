@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 export
-chmod +x .travis/*.sh
 sudo add-apt-repository ppa:ansible/ansible-2.6 -y
 sudo apt-get update
 sudo apt-get install -y ansible
