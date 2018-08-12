@@ -9,6 +9,7 @@ services:
     networks:
       - traefik
       - common_dev_traefik
+      - common_build_traefik
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /opt/docker/services/traefik/acme.json:/acme.json
@@ -53,3 +54,6 @@ networks:
   common_dev_traefik:
     external:
       name: common_dev_traefik
+  common_build_traefik:
+    external:
+      name: common_build_traefik

@@ -1,22 +1,33 @@
 ---
-[docker-swarm-manager:children]
-docker-swarm-manager-dev
-
-[docker-swarm-worker:children]
-docker-swarm-worker-dev
 
 [docker-swarm-manager-dev]
-#tm1-dev is the same host as the prod tm1 for now
 tm[1:1]-dev.pro-crafting.com
+
+[docker-swarm-manager-build]
+tm[1:1]-build.pro-crafting.com
 
 [docker-swarm-worker-dev]
 at[1:1]-dev.pro-crafting.com
 
-[common:children]
-common-dev
+[docker-swarm-worker-build]
+build[1:1].pro-crafting.com
+
+[docker-swarm-manager:children]
+docker-swarm-manager-dev
+docker-swarm-manager-build
+
+[docker-swarm-worker:children]
+docker-swarm-worker-dev
+docker-swarm-worker-build
 
 [common-dev:children]
 docker-swarm-manager-dev
 docker-swarm-worker-dev
 
+[common-build:children]
+docker-swarm-worker-build
+docker-swarm-manager-build
 
+[common:children]
+common-dev
+common-build

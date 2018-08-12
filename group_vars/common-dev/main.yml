@@ -1,8 +1,6 @@
 ---
 versions:
-  traefik: "v1.6.4"
   record_jar_converter: "latest"
-  visualizer: "stable"
 
 stack:
   name: "common_dev"
@@ -21,7 +19,4 @@ replicas:
   record_jar_converter: 1
 
 frontend_rules:
-  record_jar_converter_rest_api: "Host:rjc.dev.pro-crafting.com;PathPrefix:/record-jar-converter-rest-api"
   record_jar_converter: "Host:rjc.dev.pro-crafting.com;PathPrefix:/v1/record"
-  visualizer: "Host:visualizer.dev.pro-crafting.com"
-  traefik: "Host:monitor.dev.pro-crafting.com"

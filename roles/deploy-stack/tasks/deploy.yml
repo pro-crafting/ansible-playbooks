@@ -1,4 +1,10 @@
 ---
+- debug:
+    msg: "{{ group_names }}"
+
+- debug:
+    msg: "{{ hostvars[inventory_hostname] }}"
+
 - name: "{{service.name}} - Create directory for service definitions"
   file:
     path: "{{ docker_service_dir }}/{{stack.name}}/{{ service.name }}"

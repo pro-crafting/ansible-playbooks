@@ -1,0 +1,36 @@
+---
+versions:
+  jenkins: "lts-alpine"
+
+stack:
+  name: "common_build"
+traefik_network: "common_prod_traefik"
+
+env: "build"
+docker:
+  node_labels:
+    - name: "environment"
+      value: "{{ env }}"
+
+deployments:
+  - jenkins
+
+frontend_rules:
+  jenkins: "Host:jenkins.build.pro-crafting.com"
+
+service_definitions:
+  jenkins:
+    name: jenkins
+    image: jenkins/jenkins
+    tag: "{{ versions.jenkins }}"
+    constraints:
+      - "node.role == worker"
+      - "node.labels.environment == {{ env }}"
+    features:
+      - "secure"
+    replicas: "1"
+    labels:
+      - "traefik.port=8080"
+      - "traefik.backend=jenkins-{{env}}"
+      - "traefik.frontend.rule={{ frontend_rules.jenkins }}"
+      - "traefik.docker.network={{ traefik_network }}"
