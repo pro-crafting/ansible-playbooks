@@ -5,8 +5,7 @@ stack:
 traefik_network: "common_prod_traefik"
 
 env: "prod"
-docker:
-  node_labels:
+docker_node_labels:
   - name: "environment"
     value: "{{ env }}"
 

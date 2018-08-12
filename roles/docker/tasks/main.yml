@@ -14,3 +14,7 @@
 - name: Create Secrets
   include: meta.yml
   tags: ["secret"]
+
+- name: Add plugins
+  include: plugin.yml
+  tags: ["plugin"]

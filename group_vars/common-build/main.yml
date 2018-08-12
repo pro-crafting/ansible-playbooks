@@ -7,8 +7,7 @@ stack:
 traefik_network: "common_prod_traefik"
 
 env: "build"
-docker:
-  node_labels:
+docker_node_labels:
     - name: "environment"
       value: "{{ env }}"
 
@@ -34,3 +33,10 @@ service_definitions:
       - "traefik.backend=jenkins-{{env}}"
       - "traefik.frontend.rule={{ frontend_rules.jenkins }}"
       - "traefik.docker.network={{ traefik_network }}"
+    volumes:
+      - type: volume
+        source: jenkins-data
+        target: /var/jenkins_home
+    named_volumes:
+      - name: jenkins-data
+        driver: rexray/dobs

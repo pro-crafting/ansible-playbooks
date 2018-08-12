@@ -4,10 +4,12 @@ services:
     image: "{{ service.image }}:{{ service.tag }}"
     networks:
       - traefik
-{% if service.volumes is defined %}
     volumes:
+{% if service.volumes is defined%}
 {% for volume in service.volumes %}
-        - "{{ volume }}"
+        - type: {{ volume.type }}
+          source: {{ volume.source }}
+          target: {{ volume.target }}
 {% endfor %}
 {% endif %}
     deploy:
@@ -30,6 +32,13 @@ services:
         - "{{ label }}"
 {% endfor %}
 
+volumes:
+{% if service.named_volumes is defined %}
+{% for volume in service.named_volumes %}
+  {{ volume.name }}:
+    driver: {{ volume.driver }}
+{% endfor %}
+{% endif %}
 
 networks:
   traefik:

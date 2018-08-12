@@ -39,15 +39,6 @@
   delegate_facts: true
   run_once: true
 
-- debug:
-    msg: "{{inventory_hostname }}"
-
-- debug:
-    msg: "{{ hostvars[groups['docker-swarm-manager'][0]]['active_manager_node'] }}"
-
-- debug:
-    msg: "{{ hostvars[hostvars[groups['docker-swarm-manager'][0]]['active_manager_node']]['join_manager_token'] }}"
-
 - name: Force other potential managers to be my 'friends'
   shell: "{{ hostvars[hostvars[groups['docker-swarm-manager'][0]]['active_manager_node']].join_manager_token.stdout_lines[4] }}"
   when: "'docker-swarm-manager' in group_names and
@@ -68,6 +59,6 @@
 
 - name: Create docker node labels
   shell: "docker node update --label-add {{ item.name }}={{ item.value }} {{ ansible_hostname }}"
-  with_items: "{{ docker.node_labels }}"
-  when: "docker.node_labels is defined"
+  loop: "{{ docker_node_labels }}"
+  when: "docker_node_labels is defined"
   delegate_to: "{{ hostvars[groups['docker-swarm-manager'][0]]['active_manager_node'] }}"

@@ -1,9 +1,6 @@
 ---
 - debug:
-    msg: "{{ group_names }}"
-
-- debug:
-    msg: "{{ hostvars[inventory_hostname] }}"
+  msg: "{{ service }}"
 
 - name: "{{service.name}} - Create directory for service definitions"
   file:

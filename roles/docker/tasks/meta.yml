@@ -3,5 +3,5 @@
     name: "{{ item.name }}"
     data: "{{ item.value }}"
     state: present
-  with_items: "{{ docker.secrets }}"
-  when: "docker.secrets is defined"
+  with_items: "{{ docker_secrets }}"
+  when: "docker_secrets is defined"
