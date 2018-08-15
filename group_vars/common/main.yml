@@ -30,7 +30,7 @@ service_definitions:
     constraints:
       - "node.role == manager"
     replicas: 1
-    volumes
+    volumes:
       - type: bind
         source: /var/run/docker.sock
         target: /var/run/docker.sock

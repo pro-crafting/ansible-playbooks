@@ -1,6 +1,6 @@
 ---
 versions:
-  jenkins: "lts-alpine"
+  jenkins: "latest"
 
 stack:
   name: "common_build"
@@ -20,7 +20,7 @@ frontend_rules:
 service_definitions:
   jenkins:
     name: jenkins
-    image: jenkins/jenkins
+    image: postremus/jenkins
     tag: "{{ versions.jenkins }}"
     constraints:
       - "node.role == worker"

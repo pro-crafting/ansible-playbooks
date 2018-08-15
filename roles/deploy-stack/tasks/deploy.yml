@@ -1,7 +1,4 @@
 ---
-- debug:
-  msg: "{{ service }}"
-
 - name: "{{service.name}} - Create directory for service definitions"
   file:
     path: "{{ docker_service_dir }}/{{stack.name}}/{{ service.name }}"
