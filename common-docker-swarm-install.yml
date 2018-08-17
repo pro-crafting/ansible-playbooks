@@ -1,0 +1,5 @@
+---
+- hosts: common
+  user: root
+  roles:
+    - { role: docker, tags: ["docker"] }

@@ -3,6 +3,10 @@
   include: install.yml
   tags: ["install"]
 
-- name: Create htpasswd files
-  include: htpasswd.yml
-  tags: ["install"]
+- name: Create Users
+  include: users.yml
+  tags: ["user"]
+
+- name: Create security releated stuff
+  include: security.yml
+  tags: ["security"]

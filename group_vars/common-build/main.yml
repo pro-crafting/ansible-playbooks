@@ -37,6 +37,9 @@ service_definitions:
       - type: volume
         source: jenkins-data
         target: /var/jenkins_home
+      - type: bind
+        source: /root/id_rsa_docker
+        target: /var/jenkins_home/.ssh/id_rsa
     named_volumes:
       - name: jenkins-data
         driver: rexray/dobs

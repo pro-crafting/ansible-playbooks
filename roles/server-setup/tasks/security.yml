@@ -13,5 +13,13 @@
     password: "{{ item.1.passphrase }}"
   when: "htpasswd is defined"
   with_subelements:
-    - "{{ htpasswd }}"
-    - "secrets"
+  - "{{ htpasswd }}"
+  - "secrets"
+
+- name: Copy ssh private key
+  copy:
+    src: files/ssh/id_rsa_docker
+    dest: /root/id_rsa_docker
+    owner: 1000
+    group: 1000
+    mode: 0600
