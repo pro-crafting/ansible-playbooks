@@ -1,10 +1,10 @@
 ---
 
 [docker-swarm-manager-dev]
-tm[1:1]-dev.pro-crafting.com
+tm1.pro-crafting.com
 
 [docker-swarm-manager-build]
-tm[1:1]-build.pro-crafting.com
+tm1.pro-crafting.com
 
 [docker-swarm-worker-dev]
 at[1:1]-dev.pro-crafting.com
