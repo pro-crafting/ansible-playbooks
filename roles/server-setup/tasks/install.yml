@@ -4,3 +4,12 @@
     update_cache: yes
     name: [dnsutils, curl, python-passlib]
     state: present
+
+- name: Create default directories
+  file:
+    path: "{{ item .path}}"
+    state: directory
+    mode: "{{ item.mode }}"
+    group: "{{ item.group }}"
+  with_items:
+    - {path: "/opt/docker", group: "docker", mode: 777}

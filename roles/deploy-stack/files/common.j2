@@ -4,8 +4,8 @@ services:
     image: "{{ service.image }}:{{ service.tag }}"
     networks:
       - traefik
-    volumes:
 {% if service.volumes is defined%}
+    volumes:
 {% for volume in service.volumes %}
         - type: {{ volume.type }}
           source: {{ volume.source }}
@@ -32,8 +32,8 @@ services:
         - "{{ label }}"
 {% endfor %}
 
-volumes:
 {% if service.named_volumes is defined %}
+volumes:
 {% for volume in service.named_volumes %}
   {{ volume.name }}:
     driver: {{ volume.driver }}
