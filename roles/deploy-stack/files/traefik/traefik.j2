@@ -12,7 +12,7 @@ services:
       - common_build_traefik
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /opt/docker/services/traefik/acme.json:/acme.json
+      - "{{ docker_service_dir }}/{{stack.name}}/{{ service.name }}/acme.json:/acme.json"
     command:
       - "--api"
       - "--entrypoints=Name:http Address::80 Redirect.EntryPoint:https"
