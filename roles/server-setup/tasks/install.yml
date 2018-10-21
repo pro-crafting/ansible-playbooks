@@ -2,7 +2,7 @@
 - name: Install packages
   apt:
     update_cache: yes
-    name: [dnsutils, curl, python-passlib]
+    name: [dnsutils, curl, python-passlib, iptables-persistent]
     state: present
 
 - name: Create default directories
