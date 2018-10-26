@@ -7,7 +7,7 @@
 
 - name: Create default directories
   file:
-    path: "{{ item .path}}"
+    path: "{{ item.path}}"
     state: directory
     mode: "{{ item.mode }}"
     group: "{{ item.group }}"

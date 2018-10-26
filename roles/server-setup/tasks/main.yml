@@ -1,11 +1,15 @@
 ---
-- name: Install all needed packages
-  include: install.yml
-  tags: ["install"]
-
 - name: Create Users
   include: users.yml
   tags: ["user"]
+  loop: "{{ users }}"
+  loop_control:
+    loop_var: "user"
+  when: "users is defined"
+
+- name: Install all needed packages
+  include: install.yml
+  tags: ["install"]
 
 - name: Create security releated stuff
   include: security.yml
