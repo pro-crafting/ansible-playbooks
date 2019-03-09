@@ -11,7 +11,7 @@
   include: swarm.yml
   tags: ["swarm"]
 
-- name: Create Secrets
+- name: Create meta
   include: meta.yml
   tags: ["secret"]
 

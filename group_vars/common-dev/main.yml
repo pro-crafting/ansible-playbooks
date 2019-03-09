@@ -4,7 +4,7 @@ versions:
 
 stack:
   name: "common_dev"
-traefik_network: "common_prod_traefik"
+traefik_network: "common_dev_traefik"
 
 env: "dev"
 docker_node_labels:

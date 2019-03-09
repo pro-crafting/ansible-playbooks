@@ -8,8 +8,8 @@ services:
       - 443:443
     networks:
       - traefik
-      - common_dev_traefik
       - common_build_traefik
+      - common_dev_traefik
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - "{{ docker_service_dir }}/{{stack.name}}/{{ service.name }}/acme.json:/acme.json"
@@ -51,3 +51,9 @@ secrets:
 networks:
   traefik:
     driver: overlay
+  common_dev_traefik:
+    external:
+      name: common_dev_traefik
+  common_build_traefik:
+    external:
+      name: common_build_traefik

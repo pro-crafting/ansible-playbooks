@@ -20,5 +20,14 @@
   loop_control:
     loop_var: "file"
 
+- name: "Create needed networks"
+  docker_network:
+    name: "{{ network.name }}"
+    driver: "{{ network.driver }}"
+  when: "service.networks is defined"
+  loop: "{{ service.networks }}"
+  loop_control:
+    loop_var: "network"
+
 - name: "{{service.name}} - Update Service"
   shell: docker stack deploy -c "{{ docker_service_dir }}"/"{{stack.name}}"/"{{ service.name }}"/"{{ service.name }}".yml "{{ stack.name }}"
