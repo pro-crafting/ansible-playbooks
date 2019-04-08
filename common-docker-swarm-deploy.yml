@@ -3,6 +3,7 @@
   user: docker
   roles:
     - { role: deploy-stack, vars: {service: "{{ service_definitions.record_jar_converter_rest_api }}"}, tags: ["deploy", "rjc"], when: "'rjc' in deployments" }
+    - { role: deploy-stack, vars: {service: "{{ service_definitions.record_jar_converter_site }}"}, tags: ["deploy", "rjc"], when: "'rjc' in deployments" }
     - { role: deploy-stack, vars: {service: "{{ service_definitions.record_jar_converter }}"}, tags: ["deploy", "rjc"], when: "'rjc' in deployments" }
     - { role: deploy-stack, vars: {service: "{{ service_definitions.visualizer }}"}, tags: ["deploy", "visualizer"], when: "'visualizer' in deployments" }
     - { role: deploy-stack, vars: {service: "{{ service_definitions.traefik }}"}, tags: ["deploy", "traefik"], when: "'traefik' in deployments" }

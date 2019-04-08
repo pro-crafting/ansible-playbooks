@@ -54,6 +54,22 @@ service_definitions:
       - "traefik.frontend.rule={{ frontend_rules.record_jar_converter_rest_api }}"
       - "traefik.docker.network={{ traefik_network }}"
       - "traefik.frontend.headers.customResponseHeaders=Access-Control-Allow-Origin:*"
+  record_jar_converter_site:
+    name: record-jar-converter-site
+    image: postremus/record-jar-converter-site
+    tag: "{{ versions.record_jar_converter }}"
+    constraints:
+      - "node.role == worker"
+      - "node.labels.environment == {{ env }}"
+    features:
+      - "secure"
+    replicas: "{{ replicas.record_jar_converter }}"
+    labels:
+      - "traefik.port=8043"
+      - "traefik.backend=record-jar-converter-site-{{env}}"
+      - "traefik.frontend.rule={{ frontend_rules.record_jar_converter_site }}"
+      - "traefik.docker.network={{ traefik_network }}"
+      - "traefik.frontend.headers.customResponseHeaders=Access-Control-Allow-Origin:*"
   record_jar_converter:
     name: record-jar-converter
     image: postremus/record-jar-converter-web
