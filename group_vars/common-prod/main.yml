@@ -1,27 +1,6 @@
 ---
-versions:
-  record_jar_converter: "1.3.3"
-
-stack:
-  name: "common_prod"
-
 traefik_network: "common_prod_traefik"
 
-replicas:
-  record_jar_converter: 2
-
-env: "prod"
 docker_node_labels:
   - name: "environment"
-    value: "{{ env }}"
-
-deployments:
-  - rjc
-  - visualizer
-  - traefik
-
-frontend_rules:
-  record_jar_converter_rest_api: "Host:rjc.pro-crafting.com;PathPrefix:/record-jar-converter-rest-api"
-  record_jar_converter: "Host:rjc.pro-crafting.com;PathPrefix:/v1/record"
-  visualizer: "Host:visualizer.pro-crafting.com"
-  traefik: "Host:monitor.pro-crafting.com"
+    value: "prod"

@@ -3,3 +3,6 @@
   include: deploy.yml
   tags: ["deploy"]
   when: "'docker-swarm-manager' in group_names"
+  with_items: "{{ service.environments }}"
+  loop_control:
+    loop_var: "env"

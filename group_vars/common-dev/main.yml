@@ -1,21 +1,6 @@
 ---
-versions:
-  record_jar_converter: "latest"
-
-stack:
-  name: "common_dev"
 traefik_network: "common_dev_traefik"
 
-env: "dev"
 docker_node_labels:
-    - name: "environment"
-      value: "{{ env }}"
-
-deployments:
-  - rjc
-
-replicas:
-  record_jar_converter: 1
-
-frontend_rules:
-  record_jar_converter: "Host:rjc.dev.pro-crafting.com;PathPrefix:/v1/record"
+  - name: "environment"
+    value: "dev"

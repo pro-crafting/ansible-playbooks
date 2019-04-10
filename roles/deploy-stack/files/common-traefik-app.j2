@@ -1,9 +1,9 @@
 version: '3.4'
 services:
   {{ service.name }}:
-    image: "{{ service.image }}:{{ service.tag }}"
+    image: "{{ service.image }}:{{ env.versions[service.name] }}"
     networks:
-      - traefik
+      - {{ env.traefik_network }}
 {% if service.volumes is defined%}
     volumes:
 {% for volume in service.volumes %}
@@ -13,24 +13,29 @@ services:
 {% endfor %}
 {% endif %}
     deploy:
-      replicas: {{ service.replicas | default(2) }}
+      replicas: {{ env.replicas[service.name] }}
       placement:
         constraints:
+          - "node.labels.environment == {{ env.name }}"
 {% if service.constraints is defined %}
 {% for constraint in service.constraints %}
           - "{{ constraint }}"
 {% endfor %}
-{% else %}
-          - node.role == worker
 {% endif %}
       labels:
 {% if 'secure' in service.features %}
         - traefik.frontend.headers.STSSeconds=315360000
         - traefik.frontend.headers.STSPreload=true
 {% endif %}
+        - "traefik.port={{ service.internal_port }}"
+        - "traefik.backend={{service.name}}-{{ env.name }}"
+        - "traefik.frontend.rule={{ env.frontend_rules[service.name] }}"
+        - "traefik.docker.network={{ env.traefik_network }}"
+{% if service.labels is defined%}
 {% for label in service.labels %}
         - "{{ label }}"
 {% endfor %}
+{% endif %}
 
 {% if service.named_volumes is defined %}
 volumes:
@@ -41,5 +46,6 @@ volumes:
 {% endif %}
 
 networks:
-  traefik:
-    driver: overlay
+  {{ env.traefik_network }}:
+    external:
+      name: {{ env.traefik_network }}

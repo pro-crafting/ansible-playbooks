@@ -7,12 +7,12 @@ services:
       - 80:80
       - 443:443
     networks:
-      - traefik
+      - common_prod_traefik
       - common_build_traefik
       - common_dev_traefik
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - "{{ docker_service_dir }}/{{stack.name}}/{{ service.name }}/acme.json:/acme.json"
+      - "{{ docker_service_dir }}/{{env.stack}}/{{ service.name }}/acme.json:/acme.json"
     command:
       - "--api"
       - "--entrypoints=Name:http Address::80 Redirect.EntryPoint:https"
@@ -36,8 +36,8 @@ services:
       DO_AUTH_TOKEN: /run/secrets/DO_AUTH_TOKEN
     deploy:
       labels:
-        - "traefik.docker.network={{ traefik_network }}"
-        - "traefik.frontend.rule={{ frontend_rules.traefik }}"
+        - "traefik.docker.network={{ env.traefik_network }}"
+        - "traefik.frontend.rule={{ env.frontend_rules.traefik }}"
         - "traefik.backend=traefik-dashboard"
         - "traefik.port=8080"
         - "traefik.frontend.headers.STSSeconds=315360000"
@@ -49,8 +49,9 @@ secrets:
   DO_AUTH_TOKEN:
     external: true
 networks:
-  traefik:
-    driver: overlay
+  common_prod_traefik:
+    external:
+      name: common_prod_traefik
   common_dev_traefik:
     external:
       name: common_dev_traefik

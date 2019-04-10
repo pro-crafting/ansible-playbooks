@@ -9,6 +9,8 @@ service_definitions:
     name: traefik
     template_name: "traefik/traefik"
     tag: "{{ versions.traefik }}"
+    environments:
+      - "{{ environments.prod }}"
     files:
       - name: "traefik/acme.json"
         overwrite: false
@@ -23,83 +25,62 @@ service_definitions:
   visualizer:
     name: visualizer
     image: dockersamples/visualizer
-    tag: "{{ versions.visualizer }}"
+    internal_port: 8080
+    environments:
+      - "{{ environments.prod }}"
     constraints:
       - "node.role == manager"
-    replicas: 1
     volumes:
       - type: bind
         source: /var/run/docker.sock
         target: /var/run/docker.sock
     features:
       - "secure"
-    labels:
-      - "traefik.port=8080"
-      - "traefik.backend=visualizer-{{env}}"
-      - "traefik.frontend.rule={{ frontend_rules.visualizer }}"
-      - "traefik.docker.network={{ traefik_network }}"
   record_jar_converter_rest_api:
-    name: record-jar-converter-rest-api
+    name: record_jar_converter_rest_api
     image: postremus/record-jar-converter-rest-api
-    tag: "{{ versions.record_jar_converter }}"
+    internal_port: 8043
+    environments:
+      - "{{ environments.prod }}"
+      - "{{ environments.dev }}"
     constraints:
       - "node.role == worker"
-      - "node.labels.environment == {{ env }}"
     features:
       - "secure"
-    replicas: "{{ replicas.record_jar_converter }}"
     labels:
-      - "traefik.port=8043"
-      - "traefik.backend=record-jar-converter-rest-api-{{env}}"
-      - "traefik.frontend.rule={{ frontend_rules.record_jar_converter_rest_api }}"
-      - "traefik.docker.network={{ traefik_network }}"
       - "traefik.frontend.headers.customResponseHeaders=Access-Control-Allow-Origin:*"
   record_jar_converter_site:
-    name: record-jar-converter-site
+    name: record_jar_converter_site
     image: postremus/record-jar-converter-site
-    tag: "{{ versions.record_jar_converter }}"
+    internal_port: 8043
+    environments:
+      - "{{ environments.prod }}"
+      - "{{ environments.dev }}"
     constraints:
       - "node.role == worker"
-      - "node.labels.environment == {{ env }}"
     features:
       - "secure"
-    replicas: "{{ replicas.record_jar_converter }}"
-    labels:
-      - "traefik.port=8043"
-      - "traefik.backend=record-jar-converter-site-{{env}}"
-      - "traefik.frontend.rule={{ frontend_rules.record_jar_converter_site }}"
-      - "traefik.docker.network={{ traefik_network }}"
-      - "traefik.frontend.headers.customResponseHeaders=Access-Control-Allow-Origin:*"
   record_jar_converter:
-    name: record-jar-converter
+    name: record_jar_converter
     image: postremus/record-jar-converter-web
-    tag: "{{ versions.record_jar_converter }}"
+    internal_port: 8080
+    environments:
+      - "{{ environments.prod }}"
+      - "{{ environments.dev }}"
     constraints:
       - "node.role == worker"
-      - "node.labels.environment == {{ env }}"
     features:
       - "secure"
-    replicas: "{{ replicas.record_jar_converter }}"
-    labels:
-      - "traefik.port=8080"
-      - "traefik.backend=record-jar-converter-{{env}}"
-      - "traefik.frontend.rule={{ frontend_rules.record_jar_converter }}"
-      - "traefik.docker.network={{ traefik_network }}"
   jenkins:
     name: jenkins
     image: postremus/jenkins
-    tag: "{{ versions.jenkins }}"
+    internal_port: 8080
+    environments:
+      - "{{ environments.build }}"
     constraints:
       - "node.role == worker"
-      - "node.labels.environment == {{ env }}"
     features:
       - "secure"
-    replicas: "1"
-    labels:
-      - "traefik.port=8080"
-      - "traefik.backend=jenkins-{{env}}"
-      - "traefik.frontend.rule={{ frontend_rules.jenkins }}"
-      - "traefik.docker.network={{ traefik_network }}"
     volumes:
       - type: volume
         source: jenkins-data

@@ -1,18 +1,6 @@
 ---
-versions:
-  jenkins: "latest"
-
-stack:
-  name: "common_build"
 traefik_network: "common_build_traefik"
 
-env: "build"
 docker_node_labels:
-    - name: "environment"
-      value: "{{ env }}"
-
-deployments:
-  - jenkins
-
-frontend_rules:
-  jenkins: "Host:jenkins.build.pro-crafting.com"
+  - name: "environment"
+    value: "build"
