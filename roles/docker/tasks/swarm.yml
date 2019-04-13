@@ -46,7 +46,6 @@
 
 - name: Get Swarm worker join token
   shell: docker swarm join-token --rotate worker
-  when: "'docker-swarm-manager' in group_names"
   register: join_worker_token
   delegate_to: "{{ hostvars[groups['docker-swarm-manager'][0]]['active_manager_node'] }}"
   delegate_facts: true

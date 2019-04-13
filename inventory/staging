@@ -4,9 +4,9 @@
 at[1:1]-dev.pro-crafting.com
 
 [mongodb-dev]
-mongodb1-dev.pro-crafting.com
+mongo1-dev.pro-crafting.com
 
-[mongodb]
+[mongodb:children]
 mongodb-dev
 
 [docker-swarm-worker-build]
