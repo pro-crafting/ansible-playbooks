@@ -13,7 +13,6 @@ environments:
     replicas:
       record_jar_converter_rest_api: 1
       record_jar_converter_site: 1
-      record_jar_converter: 2
       visualizer: 1
       traefik: 1
     frontend_rules:
@@ -33,7 +32,6 @@ environments:
     replicas:
       record_jar_converter_rest_api: 1
       record_jar_converter_site: 1
-      record_jar_converter: 1
     frontend_rules:
       record_jar_converter_rest_api: "Host:record-jar-converter.dev.pro-crafting.com;PathPrefixStrip:/record-jar-converter-rest-api"
       record_jar_converter_site: "Host:record-jar-converter.dev.pro-crafting.com"

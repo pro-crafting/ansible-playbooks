@@ -13,7 +13,11 @@ services:
 {% endfor %}
 {% endif %}
     deploy:
+{% if env.replicas[service.name] is defined %}
       replicas: {{ env.replicas[service.name] }}
+{% else %}
+      mode: global
+{% endif %}
       placement:
         constraints:
           - "node.labels.environment == {{ env.name }}"

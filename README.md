@@ -1,4 +1,4 @@
 # ansible-playbooks
 Ansible playbooks used for pro-crafting.com
 
-For skipping an environment, add --extra-vars '{"tagged_envs":['dev']}
+For only deploying services on specified environments, add --extra-vars '{"tagged_envs":['dev']}
