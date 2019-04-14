@@ -2,3 +2,5 @@
 docker_node_labels:
   - name: "environment"
     value: "prod"
+  - name: "purpose"
+    value: "stateless"

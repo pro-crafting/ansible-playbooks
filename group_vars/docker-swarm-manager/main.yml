@@ -2,3 +2,9 @@
 swarm:
 # Private ip networking is bound to eth1 on digititalocean
   advertise_addr: "eth1"
+
+docker_node_labels:
+  - name: "environment"
+    value: "prod"
+  - name: "purpose"
+    value: "proxy"
