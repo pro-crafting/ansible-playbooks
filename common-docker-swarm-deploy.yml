@@ -7,4 +7,5 @@
     - { role: deploy-stack, vars: {service: "{{ service_definitions.record_jar_converter_rest_api }}"}, tags: ["deploy", "rjc"] }
     - { role: deploy-stack, vars: {service: "{{ service_definitions.record_jar_converter_site }}"}, tags: ["deploy", "rjc"] }
     - { role: deploy-stack, vars: {service: "{{ service_definitions.record_jar_converter }}"}, tags: ["deploy", "rjc"] }
+    - { role: deploy-stack, vars: {service: "{{ service_definitions.mongodb }}"}, tags: ["deploy", "mongodb"] }
     - { role: deploy-stack, vars: {service: "{{ service_definitions.jenkins }}"}, tags: ["deploy", "jenkins"] }

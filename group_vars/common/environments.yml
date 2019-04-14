@@ -29,6 +29,7 @@ environments:
       record_jar_converter_rest_api: "latest"
       record_jar_converter_site: "latest"
       record_jar_converter: "latest"
+      mongodb: "4.1"
     replicas:
       record_jar_converter_rest_api: 1
       record_jar_converter_site: 1
