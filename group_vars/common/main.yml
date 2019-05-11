@@ -102,6 +102,9 @@ service_definitions:
       - type: bind
         source: /root/id_rsa_docker
         target: /var/jenkins_home/.ssh/id_rsa
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
     named_volumes:
       - name: jenkins-data
         driver: rexray/dobs
