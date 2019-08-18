@@ -21,19 +21,19 @@ services:
       - "--docker"
       - "--docker.swarmmode"
       - "--debug"
-      - "--loglevel=error"
+      - "--loglevel=warn"
       - "--acme"
       - "--acme.email=postremus1996@googlemail.com"
       - "--acme.storage=/acme.json"
       - "--acme.onHostRule=true"
-      #- "--acme.dnschallenge=true"
-      #- "--acme.dnschallenge.provider=digitalocean"
-      - "--acme.httpchallenge"
-      - "--acme.httpchallenge.entrypoint=http"
+      - "--acme.dnschallenge=true"
+      - "--acme.dnschallenge.provider=digitalocean"
       - "--acme.entrypoint=https"
       - "--acme.acmelogging"
     environment:
-      DO_AUTH_TOKEN: /run/secrets/DO_AUTH_TOKEN
+      DO_AUTH_TOKEN_FILE: /run/secrets/DO_AUTH_TOKEN
+    secrets:
+     - DO_AUTH_TOKEN
     deploy:
       labels:
         - "traefik.docker.network={{ env.traefik_network }}"
