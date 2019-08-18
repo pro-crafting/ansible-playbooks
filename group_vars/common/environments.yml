@@ -9,7 +9,7 @@ environments:
       record_jar_converter_site: "1.5.2"
       record_jar_converter: "1.5.2"
       visualizer: "stable"
-      traefik: "v1.7.11"
+      traefik: "v1.7"
     replicas:
       record_jar_converter_rest_api: 1
       record_jar_converter_site: 1
