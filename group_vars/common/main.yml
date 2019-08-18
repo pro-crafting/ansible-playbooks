@@ -78,6 +78,8 @@ service_definitions:
     constraints:
       - "node.role == worker"
       - "node.labels.purpose == stateless"
+    random:
+      - "TOKEN_KEY_SECRET"
     features:
       - "secure"
   mongodb:

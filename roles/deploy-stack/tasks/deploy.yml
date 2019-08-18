@@ -1,4 +1,11 @@
 ---
+# Generates random uuid strings, which kan by used as keys by the service
+- name: "Create random keys used by service"
+  set_fact:
+    random: "{'{{ item }}':'{{ 9999999999999999999999 | random | to_uuid }}'}"
+  loop: "{{ service.random }}"
+  when: service.random is defined
+
 - name: "{{service.name}} - Create directory for service definitions"
   file:
     path: "{{ docker_service_dir }}/{{env.stack}}/{{ service.name }}"

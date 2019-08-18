@@ -40,6 +40,12 @@ services:
         - "{{ label }}"
 {% endfor %}
 {% endif %}
+{% if service.random is defined%}
+    environment:
+{% for name in service.random %}
+      {{ name }}: {{ random[name] }}
+{% endfor %}
+{% endif %}
 
 {% if service.named_volumes is defined %}
 volumes:
