@@ -30,4 +30,4 @@
     loop_var: "network"
 
 - name: "{{service.name}} - Update Service"
-  shell: docker stack deploy -c "{{ docker_service_dir }}"/"{{env.stack}}"/"{{ service.name }}"/"{{ service.name }}".yml "{{ env.stack }}"
+  shell: docker stack deploy -c "{{ docker_service_dir }}"/"{{env.stack}}"/"{{ service.name }}"/"{{ service.name }}".yml "{{ env.stack }}" --resolve-image always
