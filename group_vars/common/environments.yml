@@ -42,7 +42,7 @@ environments:
     stack: common_build
     traefik_network: common_build_traefik
     versions:
-      jenkins: "latest"
+      jenkins: "1.1.1"
     replicas:
       jenkins: 1
     frontend_rules:

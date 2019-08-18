@@ -87,7 +87,7 @@ service_definitions:
       - "MONGO_INITDB_ROOT_PASSWORD"
   jenkins:
     name: jenkins
-    image: postremus/jenkins
+    image: postremus/images_jenkins
     internal_port: 8080
     environments:
       - "{{ environments.build }}"
