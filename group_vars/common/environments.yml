@@ -30,6 +30,7 @@ environments:
       record_jar_converter_site: "latest"
       record_jar_converter: "latest"
       mongodb: "4.1"
+      jwt: "latest"
     replicas:
       record_jar_converter_rest_api: 1
       record_jar_converter_site: 1
@@ -37,6 +38,7 @@ environments:
       record_jar_converter_rest_api: "Host:record-jar-converter.dev.pro-crafting.com;PathPrefixStrip:/record-jar-converter-rest-api"
       record_jar_converter_site: "Host:record-jar-converter.dev.pro-crafting.com"
       record_jar_converter: "Host:record-jar-converter.dev.pro-crafting.com;PathPrefix:/v1/record"
+      jwt: "Host:jwt.dev.pro-crafting.com;PathPrefix:/v1,/openapi,/swagger-ui"
   build:
     name: build
     stack: common_build

@@ -69,6 +69,17 @@ service_definitions:
       - "node.labels.purpose == stateless"
     features:
       - "secure"
+  jwt:
+    name: jwt
+    image: postremus/github-jwt-integration-web
+    internal_port: 8080
+    environments:
+      - "{{ environments.dev }}"
+    constraints:
+      - "node.role == worker"
+      - "node.labels.purpose == stateless"
+    features:
+      - "secure"
   mongodb:
     name: mongodb
     image: mongo
