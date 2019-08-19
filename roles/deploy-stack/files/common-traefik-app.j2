@@ -40,10 +40,11 @@ services:
         - "{{ label }}"
 {% endfor %}
 {% endif %}
-{% if service.random is defined%}
-    environment:
-{% for name in service.random %}
-      {{ name }}: {{ random[name] }}
+{% if service.secrets is defined%}
+    secrets:
+{% for secret in service.secrets %}
+      - source: {{ secret.source }}
+        target: {{ secret.target }}
 {% endfor %}
 {% endif %}
 
@@ -59,3 +60,11 @@ networks:
   {{ env.traefik_network }}:
     external:
       name: {{ env.traefik_network }}
+
+{% if service.secrets is defined%}
+secrets:
+{% for secret in service.secrets %}
+  {{ secret.source }}:
+    external: true
+{% endfor %}
+{% endif %}
