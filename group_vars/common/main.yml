@@ -81,6 +81,7 @@ service_definitions:
     secrets:
       - source: "DEV_TOKEN_KEY_SECRET"
         target: "token.key.secret"
+        env: "dev"
     features:
       - "secure"
   mongodb:

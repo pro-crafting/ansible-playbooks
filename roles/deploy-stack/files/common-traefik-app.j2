@@ -42,9 +42,13 @@ services:
 {% endif %}
 {% if service.secrets is defined%}
     secrets:
+      - source: EMPTY
+        target: EMPTY
 {% for secret in service.secrets %}
+{% if secret.env == env.name %}
       - source: {{ secret.source }}
         target: {{ secret.target }}
+{% endif %}
 {% endfor %}
 {% endif %}
 
@@ -63,8 +67,12 @@ networks:
 
 {% if service.secrets is defined%}
 secrets:
+  EMPTY:
+    external: true
 {% for secret in service.secrets %}
+{% if secret.env == env.name %}
   {{ secret.source }}:
     external: true
+{% endif %}
 {% endfor %}
 {% endif %}
