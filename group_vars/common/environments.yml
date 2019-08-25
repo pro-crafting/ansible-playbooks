@@ -22,7 +22,7 @@ environments:
       record_jar_converter: "Host:record-jar-converter.pro-crafting.com;PathPrefix:/v1/record"
       visualizer: "Host:visualizer.pro-crafting.com"
       traefik: "Host:monitor.pro-crafting.com"
-      json: "Host:json.dev.pro-crafting.com"
+      json: "Host:json.pro-crafting.com"
   dev:
     name: dev
     stack: common_dev
