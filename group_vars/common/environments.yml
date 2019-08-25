@@ -10,7 +10,7 @@ environments:
       record_jar_converter: "1.5.2"
       visualizer: "stable"
       traefik: "v1.7"
-      jwt: "1.0.0"
+      json: "1.0.0"
     replicas:
       record_jar_converter_rest_api: 1
       record_jar_converter_site: 1
