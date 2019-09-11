@@ -1,4 +1,3 @@
----
 [docker-swarm-manager:children]
 docker-swarm-manager-prod
 
@@ -9,7 +8,8 @@ docker-swarm-worker-prod
 tm1.pro-crafting.com
 
 [docker-swarm-worker-prod]
-at[1:2].pro-crafting.com
+at1.pro-crafting.com
+at2.pro-crafting.com
 
 [common:children]
 common-prod

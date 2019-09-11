@@ -2,7 +2,7 @@
 - name: Deploy stack service
   include: deploy.yml
   tags: ["deploy"]
-  when: "'docker-swarm-manager' in group_names and ((tagged_envs is undefined or (tagged_envs|length==0)) or env.name in tagged_envs)"
+  when: "'docker-swarm-manager' in group_names and '{{ env.group }}' in group_names and ((tagged_envs is undefined or (tagged_envs|length==0)) or env.name in tagged_envs)"
   loop: "{{ service.environments }}"
   loop_control:
     loop_var: "env"

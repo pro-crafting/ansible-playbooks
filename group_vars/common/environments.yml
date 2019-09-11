@@ -4,6 +4,7 @@ environments:
     name: prod
     stack: common_prod
     traefik_network: common_prod_traefik
+    group: common-prod
     versions:
       record_jar_converter_rest_api: "1.5.2"
       record_jar_converter_site: "1.5.2"
@@ -27,6 +28,7 @@ environments:
     name: dev
     stack: common_dev
     traefik_network: common_dev_traefik
+    group: common-dev
     versions:
       record_jar_converter_rest_api: "latest"
       record_jar_converter_site: "latest"
@@ -34,22 +36,21 @@ environments:
       mongodb: "4.1"
       jwt: "latest"
       json: "latest"
+      jenkins: "1.1.1"
+      visualizer: "stable"
+      traefik: "v1.7"
     replicas:
       record_jar_converter_rest_api: 1
       record_jar_converter_site: 1
+      jenkins: 1
+      visualizer: 1
+      traefik: 1
     frontend_rules:
       record_jar_converter_rest_api: "Host:record-jar-converter.dev.pro-crafting.com;PathPrefixStrip:/record-jar-converter-rest-api"
       record_jar_converter_site: "Host:record-jar-converter.dev.pro-crafting.com"
       record_jar_converter: "Host:record-jar-converter.dev.pro-crafting.com;PathPrefix:/v1/record"
       jwt: "Host:jwt.dev.pro-crafting.com;PathPrefix:/jwt-api/v1,/openapi,/swagger-ui"
       json: "Host:json.dev.pro-crafting.com"
-  build:
-    name: build
-    stack: common_build
-    traefik_network: common_build_traefik
-    versions:
-      jenkins: "1.1.1"
-    replicas:
-      jenkins: 1
-    frontend_rules:
       jenkins: "Host:jenkins.build.pro-crafting.com"
+      visualizer: "Host:visualizer.dev.pro-crafting.com"
+      traefik: "Host:monitor.dev.pro-crafting.com"

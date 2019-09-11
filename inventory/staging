@@ -1,4 +1,8 @@
----
+[docker-swarm-manager:children]
+docker-swarm-manager-dev
+
+[docker-swarm-manager-dev]
+tm1-dev.pro-crafting.com
 
 [docker-swarm-worker-dev]
 at[1:1]-dev.pro-crafting.com
@@ -18,6 +22,7 @@ docker-swarm-worker-build
 mongodb-dev
 
 [common-dev:children]
+docker-swarm-manager-dev
 docker-swarm-worker-dev
 mongodb-dev
 

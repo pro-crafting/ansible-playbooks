@@ -20,6 +20,6 @@
   copy:
     src: files/ssh/id_rsa_docker
     dest: /root/id_rsa_docker
-    owner: 1000
-    group: 1000
-    mode: 0600
+    owner: "1000"
+    group: "1000"
+    mode: "0600"

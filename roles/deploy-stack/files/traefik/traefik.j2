@@ -6,16 +6,14 @@ services:
       - 80:80
       - 443:443
     networks:
-      - common_prod_traefik
-      - common_build_traefik
-      - common_dev_traefik
+      - {{ env.traefik_network }}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - "{{ docker_service_dir }}/{{env.stack}}/{{ service.name }}/acme.json:/acme.json"
     command:
       - "--api"
-      - "--entrypoints=Name:http Address::80 Redirect.EntryPoint:https"
-      - "--entrypoints=Name:https Address::443 TLS"
+      - "--entrypoints=Name:http Address:0.0.0.0:80 Redirect.EntryPoint:https"
+      - "--entrypoints=Name:https Address:0.0.0.0:443 TLS"
       - "--defaultentrypoints=http,https"
       - "--docker"
       - "--docker.swarmmode"
@@ -48,12 +46,6 @@ secrets:
   DO_AUTH_TOKEN:
     external: true
 networks:
-  common_prod_traefik:
+  {{ env.traefik_network }}:
     external:
-      name: common_prod_traefik
-  common_dev_traefik:
-    external:
-      name: common_dev_traefik
-  common_build_traefik:
-    external:
-      name: common_build_traefik
+      name: {{ env.traefik_network }}

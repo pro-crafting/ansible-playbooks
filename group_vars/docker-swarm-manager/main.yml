@@ -1,7 +1,7 @@
 ---
 swarm:
-# Private ip networking is bound to eth1 on digititalocean
-  advertise_addr: "eth1"
+# Private ip networking is bound to ens10 on hcloud
+  advertise_addr: "ens10"
 
 docker_node_labels:
   - name: "environment"

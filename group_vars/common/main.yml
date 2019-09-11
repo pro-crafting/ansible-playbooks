@@ -6,13 +6,12 @@ service_definitions:
     template_name: "traefik/traefik"
     environments:
       - "{{ environments.prod }}"
+      - "{{ environments.dev }}"
     files:
       - name: "traefik/acme.json"
         overwrite: false
         mode: "0600"
     networks:
-      - name: "common_build_traefik"
-        driver: "overlay"
       - name: "common_dev_traefik"
         driver: "overlay"
       - name: "common_prod_traefik"
@@ -23,6 +22,7 @@ service_definitions:
     internal_port: 8080
     environments:
       - "{{ environments.prod }}"
+      - "{{ environments.dev }}"
     constraints:
       - "node.role == manager"
     volumes:
@@ -117,7 +117,7 @@ service_definitions:
     image: postremus/images_jenkins
     internal_port: 8080
     environments:
-      - "{{ environments.build }}"
+      - "{{ environments.dev }}"
     constraints:
       - "node.role == worker"
     features:
