@@ -5,7 +5,7 @@ docker-swarm-manager-dev
 tm1-dev.pro-crafting.com
 
 [docker-swarm-worker-dev]
-at[1:1]-dev.pro-crafting.com
+at[1:2]-dev.pro-crafting.com
 
 [mongodb-dev]
 mongo1-dev.pro-crafting.com
