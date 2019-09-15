@@ -120,6 +120,7 @@ service_definitions:
       - "{{ environments.dev }}"
     constraints:
       - "node.role == worker"
+      - "node.labels.purpose == build"
     features:
       - "secure"
     volumes:
@@ -134,4 +135,4 @@ service_definitions:
         target: /var/run/docker.sock
     named_volumes:
       - name: jenkins-data
-        driver: rexray/dobs
+        driver: local

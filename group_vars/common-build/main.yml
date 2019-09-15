@@ -1,4 +1,6 @@
 ---
 docker_node_labels:
   - name: "environment"
+    value: "dev"
+  - name: "purpose"
     value: "build"
