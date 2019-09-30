@@ -11,10 +11,10 @@
   include: swarm.yml
   tags: ["swarm"]
 
+- name: Setup Node
+  include: node.yml
+  tags: ["node"]
+
 - name: Create meta
   include: meta.yml
   tags: ["secret"]
-
-- name: Add plugins
-  include: plugin.yml
-  tags: ["plugin"]

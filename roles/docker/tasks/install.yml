@@ -38,5 +38,5 @@
 
 - name: Install docker python modules
   pip:
-    name: [docker]
+    name: [docker, jsondiff, pyyaml]
     state: present

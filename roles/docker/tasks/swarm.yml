@@ -1,7 +1,4 @@
 ---
-# TODO: Figure out if current swarm manager nodes are equal to manager nodes from inventory
-# TODO: Is worker node really connected to the right swarm?
-
 - name: Figure out if any of the intended swarm managers is already an active manager
   shell: "docker info --format '{{ '{{' }} json .Swarm.LocalNodeState {{ '}}' }}'"
   register: local_node_state
@@ -55,9 +52,3 @@
   shell: "{{ hostvars[hostvars[groups['docker-swarm-manager'][0]]['active_manager_node']].join_worker_token.stdout_lines[4] }} || true"
   when: "'docker-swarm-worker' in group_names"
   ignore_errors: yes
-
-- name: Create docker node labels
-  shell: "docker node update --label-add {{ item.name }}={{ item.value }} {{ ansible_hostname }}"
-  loop: "{{ docker_node_labels }}"
-  when: "docker_node_labels is defined"
-  delegate_to: "{{ hostvars[groups['docker-swarm-manager'][0]]['active_manager_node'] }}"
