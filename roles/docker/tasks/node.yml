@@ -8,8 +8,6 @@
 - name: Create docker node labels
   docker_node:
     hostname: "{{ ansible_hostname }}"
-    labels:
-      "{{ item.name }}": "{{ item.value }}"
-  loop: "{{ docker_node_labels }}"
+    labels: "{{ docker_node_labels }}"
   when: "docker_node_labels is defined"
   delegate_to: "{{ groups['docker-swarm-manager'][0] }}"
