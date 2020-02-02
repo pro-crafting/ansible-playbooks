@@ -12,6 +12,7 @@ environments:
       visualizer: "stable"
       traefik: "v1.7"
       json: "1.0.3"
+      xml: "1.0.0"
     replicas:
       record_jar_converter_rest_api: 1
       record_jar_converter_site: 1
@@ -24,6 +25,7 @@ environments:
       visualizer: "Host:visualizer.pro-crafting.com"
       traefik: "Host:monitor.pro-crafting.com"
       json: "Host:json.pro-crafting.com"
+      xml: "Host:xml.pro-crafting.com,xmlpretty.com,xmlpretty.de"
   dev:
     name: dev
     stack: common_dev
@@ -36,6 +38,7 @@ environments:
       mongodb: "4.1"
       jwt: "latest"
       json: "latest"
+      xml: "latest"
       jenkins: "1.1.1"
       visualizer: "stable"
       traefik: "v1.7"
@@ -51,6 +54,7 @@ environments:
       record_jar_converter: "Host:record-jar-converter.dev.pro-crafting.com;PathPrefix:/v1/record"
       jwt: "Host:jwt.dev.pro-crafting.com;PathPrefix:/jwt-api/v1,/openapi,/swagger-ui"
       json: "Host:json.dev.pro-crafting.com"
+      xml: "Host:xml.dev.pro-crafting.com"
       jenkins: "Host:jenkins.build.pro-crafting.com"
       visualizer: "Host:visualizer.dev.pro-crafting.com"
       traefik: "Host:monitor.dev.pro-crafting.com"

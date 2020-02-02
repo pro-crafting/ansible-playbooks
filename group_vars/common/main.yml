@@ -96,6 +96,18 @@ service_definitions:
       - "node.labels.purpose == stateless"
     features:
       - "secure"
+  xml:
+    name: xml
+    image: postremus/xmlpretty-web
+    internal_port: 8080
+    environments:
+      - "{{ environments.prod }}"
+      - "{{ environments.dev }}"
+    constraints:
+      - "node.role == worker"
+      - "node.labels.purpose == stateless"
+    features:
+      - "secure"
   mongodb:
     name: mongodb
     image: mongo
