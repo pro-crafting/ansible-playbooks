@@ -41,7 +41,7 @@ environments:
       xml: "latest"
       jenkins: "1.1.3"
       visualizer: "stable"
-      traefik: "v1.7"
+      traefik: "v1.7.21"
     replicas:
       record_jar_converter_rest_api: 1
       record_jar_converter_site: 1

@@ -1,3 +1,4 @@
+#TODO: use Hetzner dns api for dnschallange, once lego 3.7.0 is included in newest traefik
 version: '3.4'
 services:
   traefik:
@@ -23,14 +24,16 @@ services:
       - "--acme.email=postremus1996@googlemail.com"
       - "--acme.storage=/acme.json"
       - "--acme.onHostRule=true"
-      - "--acme.dnschallenge=true"
-      - "--acme.dnschallenge.provider=digitalocean"
+      - "--acme.httpchallenge"
+      - "--acme.httpchallenge.entrypoint=http"
+      #- "--acme.dnschallenge=true"
+      #- "--acme.dnschallenge.provider=hetzner"
       - "--acme.entrypoint=https"
       - "--acme.acmelogging"
     environment:
-      DO_AUTH_TOKEN_FILE: /run/secrets/DO_AUTH_TOKEN
+      HETZNER_AUTH_TOKEN_FILE: /run/secrets/HETZNER_AUTH_TOKEN
     secrets:
-     - DO_AUTH_TOKEN
+     - HETZNER_AUTH_TOKEN
     deploy:
       labels:
         - "traefik.docker.network={{ env.traefik_network }}"
@@ -43,7 +46,7 @@ services:
         constraints:
           - node.role == manager
 secrets:
-  DO_AUTH_TOKEN:
+  HETZNER_AUTH_TOKEN:
     external: true
 networks:
   {{ env.traefik_network }}:
