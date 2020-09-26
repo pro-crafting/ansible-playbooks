@@ -39,7 +39,7 @@ environments:
       jwt: "latest"
       json: "latest"
       xml: "latest"
-      jenkins: "1.1.3"
+      jenkins: "1.1.4"
       visualizer: "stable"
       traefik: "v1.7.21"
     replicas:
