@@ -29,8 +29,8 @@ environments:
   dev:
     name: dev
     stack: common_dev
-    traefik_network: common_dev_traefik
-    group: common-dev
+    traefik_network: common_prod_traefik
+    group: common
     versions:
       record_jar_converter_rest_api: "latest"
       record_jar_converter_site: "latest"
@@ -45,6 +45,7 @@ environments:
       prometheus: "latest"
       grafana: "latest"
     replicas:
+      json: 1
       record_jar_converter_rest_api: 1
       record_jar_converter_site: 1
       jenkins: 1

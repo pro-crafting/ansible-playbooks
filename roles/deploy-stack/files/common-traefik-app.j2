@@ -18,10 +18,9 @@ services:
 {% else %}
       mode: global
 {% endif %}
+{% if service.constraints is defined %}
       placement:
         constraints:
-          - "node.labels.environment == {{ env.name }}"
-{% if service.constraints is defined %}
 {% for constraint in service.constraints %}
           - "{{ constraint }}"
 {% endfor %}

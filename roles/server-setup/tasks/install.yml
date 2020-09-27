@@ -5,6 +5,11 @@
     name: [dnsutils, curl, python-passlib, iptables-persistent, python-pip, python-setuptools]
     state: present
 
+- name: Update full
+  apt:
+    update_cache: yes
+    upgrade: full
+
 - name: Create default directories
   file:
     path: "{{ item.path}}"

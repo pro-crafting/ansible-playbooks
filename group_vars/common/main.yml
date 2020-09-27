@@ -6,7 +6,6 @@ service_definitions:
     template_name: "traefik/traefik"
     environments:
       - "{{ environments.prod }}"
-      - "{{ environments.dev }}"
     files:
       - name: "traefik/acme.json"
         overwrite: false
@@ -22,7 +21,6 @@ service_definitions:
     internal_port: 8080
     environments:
       - "{{ environments.prod }}"
-      - "{{ environments.dev }}"
     constraints:
       - "node.role == manager"
     volumes:
