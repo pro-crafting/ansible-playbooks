@@ -42,12 +42,16 @@ environments:
       jenkins: "1.1.4"
       visualizer: "stable"
       traefik: "v1.7.21"
+      prometheus: "latest"
+      grafana: "latest"
     replicas:
       record_jar_converter_rest_api: 1
       record_jar_converter_site: 1
       jenkins: 1
       visualizer: 1
       traefik: 1
+      prometheus: 1
+      grafana: 1
     frontend_rules:
       record_jar_converter_rest_api: "Host:record-jar-converter.dev.pro-crafting.com;PathPrefixStrip:/record-jar-converter-rest-api"
       record_jar_converter_site: "Host:record-jar-converter.dev.pro-crafting.com"
@@ -58,3 +62,5 @@ environments:
       jenkins: "Host:jenkins.build.pro-crafting.com"
       visualizer: "Host:visualizer.dev.pro-crafting.com"
       traefik: "Host:monitor.dev.pro-crafting.com"
+      prometheus: "Host:prometheus.build.pro-crafting.com"
+      grafana: "Host:grafana.build.pro-crafting.com"

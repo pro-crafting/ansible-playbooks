@@ -148,3 +148,43 @@ service_definitions:
     named_volumes:
       - name: jenkins-data
         driver: local
+  prometheus:
+    name: prometheus
+    image: prom/prometheus
+    internal_port: 9090
+    environments:
+      - "{{ environments.dev }}"
+    constraints:
+      - "node.role == worker"
+      - "node.labels.purpose == build"
+    features:
+      - "secure"
+    files:
+      - name: "prometheus/prometheus.yml"
+        overwrite: false
+        mode: "0600"
+    volumes:
+      - type: bind
+        source: /dev/sdc/prometheus
+        target: /data/
+      - type: bind
+        source: "{{ docker_service_dir }}/common_dev/prometheus/prometheus.yml"
+        target: "/data/prometheus.yml"
+  grafana:
+    name: grafana
+    image: grafana/grafana
+    internal_port: 3000
+    environments:
+      - "{{ environments.dev }}"
+    constraints:
+      - "node.role == worker"
+      - "node.labels.purpose == build"
+    features:
+      - "secure"
+    volumes:
+      - type: bind
+        source: /dev/sdc/grafana
+        target: /var/lib/grafana
+    env_vars:
+      - "GF_SERVER_DOMAIN=grafana.build.pro-crafting.com"
+      - "GF_SERVER_ROOT_URL=https://grafana.build.pro-crafting.com/"
