@@ -6,22 +6,16 @@ environments:
     traefik_network: common_prod_traefik
     group: common-prod
     versions:
-      record_jar_converter_rest_api: "1.5.2"
-      record_jar_converter_site: "1.5.2"
-      record_jar_converter: "1.5.2"
+      record_jar_converter: "1.6.0"
       visualizer: "stable"
       traefik: "v1.7.21"
       json: "1.0.4"
       xml: "1.0.0"
     replicas:
-      record_jar_converter_rest_api: 1
-      record_jar_converter_site: 1
       visualizer: 1
       traefik: 1
     frontend_rules:
-      record_jar_converter_rest_api: "Host:record-jar-converter.pro-crafting.com;PathPrefix:/record-jar-converter-rest-api"
-      record_jar_converter_site: "Host:record-jar-converter.pro-crafting.com"
-      record_jar_converter: "Host:record-jar-converter.pro-crafting.com;PathPrefix:/v1/record"
+      record_jar_converter: "Host:record-jar-converter.pro-crafting.com"
       visualizer: "Host:visualizer.pro-crafting.com"
       traefik: "Host:monitor.pro-crafting.com"
       json: "Host:json.pro-crafting.com"
@@ -32,8 +26,6 @@ environments:
     traefik_network: common_prod_traefik
     group: common
     versions:
-      record_jar_converter_rest_api: "latest"
-      record_jar_converter_site: "latest"
       record_jar_converter: "latest"
       mongodb: "4.1"
       jwt: "latest"
@@ -46,17 +38,13 @@ environments:
       grafana: "latest"
     replicas:
       json: 1
-      record_jar_converter_rest_api: 1
-      record_jar_converter_site: 1
       jenkins: 1
       visualizer: 1
       traefik: 1
       prometheus: 1
       grafana: 1
     frontend_rules:
-      record_jar_converter_rest_api: "Host:record-jar-converter.dev.pro-crafting.com;PathPrefixStrip:/record-jar-converter-rest-api"
-      record_jar_converter_site: "Host:record-jar-converter.dev.pro-crafting.com"
-      record_jar_converter: "Host:record-jar-converter.dev.pro-crafting.com;PathPrefix:/v1/record"
+      record_jar_converter: "Host:record-jar-converter.dev.pro-crafting.com"
       jwt: "Host:jwt.dev.pro-crafting.com;PathPrefix:/jwt-api/v1,/openapi,/swagger-ui"
       json: "Host:json.dev.pro-crafting.com"
       xml: "Host:xml.dev.pro-crafting.com"

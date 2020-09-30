@@ -29,32 +29,6 @@ service_definitions:
         target: /var/run/docker.sock
     features:
       - "secure"
-  record_jar_converter_rest_api:
-    name: record_jar_converter_rest_api
-    image: postremus/record-jar-converter-rest-api
-    internal_port: 8043
-    environments:
-      - "{{ environments.prod }}"
-      - "{{ environments.dev }}"
-    constraints:
-      - "node.role == worker"
-      - "node.labels.purpose == stateless"
-    features:
-      - "secure"
-    labels:
-      - "traefik.frontend.headers.customResponseHeaders=Access-Control-Allow-Origin:*"
-  record_jar_converter_site:
-    name: record_jar_converter_site
-    image: postremus/record-jar-converter-site
-    internal_port: 8043
-    environments:
-      - "{{ environments.prod }}"
-      - "{{ environments.dev }}"
-    constraints:
-      - "node.role == worker"
-      - "node.labels.purpose == stateless"
-    features:
-      - "secure"
   record_jar_converter:
     name: record_jar_converter
     image: postremus/record-jar-converter-web

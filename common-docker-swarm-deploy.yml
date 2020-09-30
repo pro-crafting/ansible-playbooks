@@ -4,8 +4,6 @@
   roles:
     - { role: deploy-stack, vars: {service: "{{ service_definitions.traefik }}"}, tags: ["deploy", "traefik"] }
     - { role: deploy-stack, vars: {service: "{{ service_definitions.visualizer }}"}, tags: ["deploy", "visualizer"] }
-    - { role: deploy-stack, vars: {service: "{{ service_definitions.record_jar_converter_rest_api }}"}, tags: ["deploy", "rjc"] }
-    - { role: deploy-stack, vars: {service: "{{ service_definitions.record_jar_converter_site }}"}, tags: ["deploy", "rjc"] }
     - { role: deploy-stack, vars: {service: "{{ service_definitions.record_jar_converter }}"}, tags: ["deploy", "rjc"] }
     - { role: deploy-stack, vars: {service: "{{ service_definitions.jwt }}"}, tags: ["deploy", "jwt"] }
     - { role: deploy-stack, vars: {service: "{{ service_definitions.json }}"}, tags: ["deploy", "json"] }
