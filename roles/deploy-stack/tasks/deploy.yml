@@ -20,6 +20,17 @@
   loop_control:
     loop_var: "config"
 
+- name: "{{service.name}} - Copy additional configuration files to remote"
+  copy:
+    src: "files/{{ file.name }}"
+    dest: "{{ docker_service_dir }}/{{env.stack}}/{{ service.name }}/{{ file.name | basename }}"
+    force: "{{ file.overwrite }}"
+    mode: "{{ file.mode | default('0644') }}"
+  when: "service.files is defined"
+  loop: "{{ service.files }}"
+  loop_control:
+    loop_var: "file"
+
 - name: "Create needed networks"
   docker_network:
     name: "{{ network.name }}"
