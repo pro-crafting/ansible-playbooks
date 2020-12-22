@@ -11,6 +11,7 @@ environments:
       traefik: "v1.7.21"
       json: "1.0.4"
       xml: "1.0.0"
+      cadvisor: "latest"
     replicas:
       visualizer: 1
       traefik: 1
@@ -35,6 +36,7 @@ environments:
       traefik: "v1.7.21"
       prometheus: "latest"
       grafana: "latest"
+      cadvisor: "latest"
     replicas:
       json: 1
       jenkins: 1

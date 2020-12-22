@@ -11,3 +11,4 @@
     - { role: deploy-stack, vars: {service: "{{ service_definitions.jenkins }}"}, tags: ["deploy", "jenkins"] }
     - { role: deploy-stack, vars: {service: "{{ service_definitions.grafana }}"}, tags: ["deploy", "grafana"] }
     - { role: deploy-stack, vars: {service: "{{ service_definitions.prometheus }}"}, tags: ["deploy", "prometheus"] }
+    - { role: deploy-stack, vars: {service: "{{ service_definitions.cadvisor }}"}, tags: ["deploy", "cadvisor"] }

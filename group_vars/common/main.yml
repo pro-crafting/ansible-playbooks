@@ -119,6 +119,11 @@ service_definitions:
       - name: "prometheus-v1"
         path: "prometheus/prometheus.yml"
         target: "/data/prometheus.yml"
+    networks:
+      - name: "common_dev_prometheus"
+        driver: "overlay"
+      - name: "common_prod_prometheus"
+        driver: "overlay"
     volumes:
       - type: bind
         source: /mnt/HC_Volume_6796206/prometheus
@@ -138,3 +143,9 @@ service_definitions:
       - type: bind
         source: /mnt/HC_Volume_6796206/grafana
         target: /var/lib/grafana
+  cadvisor:
+    name: cadvisor
+    template_name: "cadvisor"
+    image: google/cadvisor
+    environments:
+      - "{{ environments.dev }}"
