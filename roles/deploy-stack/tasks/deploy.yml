@@ -9,16 +9,16 @@
     src: "files/{{ service.template_name | default('common-traefik-app') }}.j2"
     dest: "{{ docker_service_dir }}/{{env.stack}}/{{ service.name }}/{{ service.name }}.yml"
 
-- name: "{{service.name}} - Copy additional configuration files to remote"
-  copy:
-    src: "files/{{ file.name }}"
-    dest: "{{ docker_service_dir }}/{{env.stack}}/{{ service.name }}/{{ file.name | basename }}"
-    force: "{{ file.overwrite }}"
-    mode: "{{ file.mode | default('0644') }}"
-  when: "service.files is defined"
-  loop: "{{ service.files }}"
+- name: Create config from file on the ansible control machine
+  docker_config:
+    name: "{{config.name}}"
+    data: "{{ lookup('file', 'files/{{ config.path }}') | b64encode }}"
+    data_is_b64: true
+    state: present
+  when: "service.configs is defined"
+  loop: "{{ service.configs }}"
   loop_control:
-    loop_var: "file"
+    loop_var: "config"
 
 - name: "Create needed networks"
   docker_network:

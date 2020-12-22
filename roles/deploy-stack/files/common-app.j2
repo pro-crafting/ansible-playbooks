@@ -48,6 +48,13 @@ services:
         - "{{ label }}"
 {% endfor %}
 {% endif %}
+{% if service.configs is defined %}
+{% for config in service.configs %}
+    configs:
+      - source: "{{ config.name }}"
+        target: "{{ config.target }}"
+{% endfor %}
+{% endif %}
 
 {% if service.named_volumes is defined %}
 volumes:
@@ -66,6 +73,14 @@ networks:
 secrets:
 {% for secret in service.secrets %}
   {{ secret }}:
+    external: true
+{% endfor %}
+{% endif %}
+
+{% if service.configs is defined %}
+configs:
+{% for config in service.configs %}
+  {{config.name}}:
     external: true
 {% endfor %}
 {% endif %}

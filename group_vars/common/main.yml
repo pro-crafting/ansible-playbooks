@@ -115,17 +115,14 @@ service_definitions:
       - "node.labels.purpose == build"
     features:
       - "secure"
-    files:
-      - name: "prometheus/prometheus.yml"
-        overwrite: false
-        mode: "0600"
+    configs:
+      - name: "prometheus-v1"
+        path: "prometheus/prometheus.yml"
+        target: "/data/prometheus.yml"
     volumes:
       - type: bind
-        source: /dev/sdc/prometheus
+        source: /mnt/HC_Volume_6796206/prometheus
         target: /data/
-      - type: bind
-        source: "{{ docker_service_dir }}/common_dev/prometheus/prometheus.yml"
-        target: "/data/prometheus.yml"
   grafana:
     name: grafana
     image: grafana/grafana
@@ -139,8 +136,5 @@ service_definitions:
       - "secure"
     volumes:
       - type: bind
-        source: /dev/sdc/grafana
+        source: /mnt/HC_Volume_6796206/grafana
         target: /var/lib/grafana
-    env_vars:
-      - "GF_SERVER_DOMAIN=grafana.build.pro-crafting.com"
-      - "GF_SERVER_ROOT_URL=https://grafana.build.pro-crafting.com/"
