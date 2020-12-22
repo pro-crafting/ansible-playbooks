@@ -8,7 +8,6 @@
     - { role: deploy-stack, vars: {service: "{{ service_definitions.jwt }}"}, tags: ["deploy", "jwt"] }
     - { role: deploy-stack, vars: {service: "{{ service_definitions.json }}"}, tags: ["deploy", "json"] }
     - { role: deploy-stack, vars: {service: "{{ service_definitions.xml }}"}, tags: ["deploy", "xml"] }
-    - { role: deploy-stack, vars: {service: "{{ service_definitions.mongodb }}"}, tags: ["deploy", "mongodb"] }
     - { role: deploy-stack, vars: {service: "{{ service_definitions.jenkins }}"}, tags: ["deploy", "jenkins"] }
     - { role: deploy-stack, vars: {service: "{{ service_definitions.grafana }}"}, tags: ["deploy", "grafana"] }
     - { role: deploy-stack, vars: {service: "{{ service_definitions.prometheus }}"}, tags: ["deploy", "prometheus"] }

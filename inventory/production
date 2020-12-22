@@ -10,23 +10,15 @@ at2.pro-crafting.com
 
 [docker-swarm-worker:children]
 docker-swarm-worker-prod
-mongodb-dev
 common-build
 
 [common:children]
 common-prod
-mongodb-dev
 common-build
 
 [common-prod:children]
 docker-swarm-manager-prod
 docker-swarm-worker-prod
-
-[mongodb-dev]
-#mongo1-dev.pro-crafting.com
-
-[mongodb:children]
-mongodb-dev
 
 [common-build]
 build[1:1].pro-crafting.com

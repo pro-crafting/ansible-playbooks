@@ -80,22 +80,6 @@ service_definitions:
       - "node.labels.purpose == stateless"
     features:
       - "secure"
-  mongodb:
-    name: mongodb
-    image: mongo
-    internal_port: 27017
-    template_name: "common-app"
-    environments:
-      - "{{ environments.dev }}"
-    constraints:
-      - "node.role == worker"
-      - "node.labels.purpose == mongodb"
-    env_vars:
-      - "MONGO_INITDB_ROOT_USERNAME_FILE=/run/secrets/MONGO_INITDB_ROOT_USERNAME"
-      - "MONGO_INITDB_ROOT_PASSWORD_FILE=/run/secrets/MONGO_INITDB_ROOT_PASSWORD"
-    secrets:
-      - "MONGO_INITDB_ROOT_USERNAME"
-      - "MONGO_INITDB_ROOT_PASSWORD"
   jenkins:
     name: jenkins
     image: postremus/images_jenkins

@@ -27,7 +27,6 @@ environments:
     group: common
     versions:
       record_jar_converter: "latest"
-      mongodb: "4.1"
       jwt: "latest"
       json: "latest"
       xml: "latest"
