@@ -115,10 +115,11 @@ service_definitions:
       - "node.labels.purpose == build"
     features:
       - "secure"
-    configs:
-      - name: "prometheus-v1"
-        path: "prometheus/prometheus.yml"
-        target: "/data/prometheus.yml"
+    files:
+      - name: "prometheus-v3"
+        path: "prometheus/prometheus-config.yml"
+        target: "/etc/prometheus/prometheus.yml"
+        overwrite: true
     networks:
       - name: "common_dev_prometheus"
         driver: "overlay"
@@ -127,7 +128,7 @@ service_definitions:
     volumes:
       - type: bind
         source: /mnt/HC_Volume_6796206/prometheus
-        target: /data/
+        target: /prometheus
   grafana:
     name: grafana
     image: grafana/grafana
@@ -148,4 +149,4 @@ service_definitions:
     template_name: "cadvisor"
     image: google/cadvisor
     environments:
-      - "{{ environments.dev }}"
+      - "{{ environments.prod }}"

@@ -1,0 +1,32 @@
+
+global:
+  scrape_interval:        15s
+  evaluation_interval:    15s
+  external_labels:
+    monitor: 'codelab-monitor'
+
+scrape_configs:
+  - job_name: 'prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [localhost:9090]
+
+#################################
+# Container Exporter (Cadvisor) #
+#################################
+  - job_name: cadvisor
+    dns_sd_configs:
+      - names:
+          - 'tasks.common_prod_cadvisor'
+        type: 'A'
+        port: 8080
+    scrape_interval: 30s
+
+#################################
+# Quarkus Metrics
+#################################
+  - job_name: quarkus
+    scrape_interval: 10s
+    static_configs:
+      # Production Servers
+      - targets: ['api.wargearworld.net']

@@ -51,11 +51,11 @@ services:
 {% endfor %}
 {% endif %}
 
-{% if service.configs is defined %}
-{% for config in service.configs %}
+{% if service.files is defined %}
     configs:
-      - source: "{{ config.name }}"
-        target: "{{ config.target }}"
+{% for file in service.files %}
+      - source: "{{ file.name }}"
+        target: "{{ file.target }}"
 {% endfor %}
 {% endif %}
 
@@ -84,10 +84,10 @@ secrets:
 {% endfor %}
 {% endif %}
 
-{% if service.configs is defined %}
+{% if service.files is defined %}
 configs:
-{% for config in service.configs %}
-  {{config.name}}:
-    external: true
+{% for file in service.files %}
+  {{file.name}}:
+    file: {{ docker_service_dir }}/{{env.stack}}/{{ service.name }}/{{ file.path | basename }}
 {% endfor %}
 {% endif %}
