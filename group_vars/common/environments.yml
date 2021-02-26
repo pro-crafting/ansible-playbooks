@@ -31,7 +31,7 @@ environments:
       jwt: "latest"
       json: "latest"
       xml: "latest"
-      jenkins: "1.1.4"
+      jenkins: "1.1.5"
       visualizer: "stable"
       traefik: "v1.7.21"
       prometheus: "latest"
