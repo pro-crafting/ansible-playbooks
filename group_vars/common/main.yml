@@ -95,6 +95,9 @@ service_definitions:
       - type: volume
         source: jenkins-data
         target: /var/jenkins_home
+      - type: volume
+        source: jenkins-m2
+        target: /data/maven
       - type: bind
         source: /root/id_rsa_docker
         target: /var/jenkins_home/.ssh/id_rsa
@@ -103,6 +106,8 @@ service_definitions:
         target: /var/run/docker.sock
     named_volumes:
       - name: jenkins-data
+        driver: local
+      - name: jenkins-m2
         driver: local
   prometheus:
     name: prometheus
