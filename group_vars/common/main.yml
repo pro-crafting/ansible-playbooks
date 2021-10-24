@@ -109,46 +109,6 @@ service_definitions:
         driver: local
       - name: jenkins-m2
         driver: local
-  prometheus:
-    name: prometheus
-    image: prom/prometheus
-    internal_port: 9090
-    environments:
-      - "{{ environments.dev }}"
-    constraints:
-      - "node.role == worker"
-      - "node.labels.purpose == build"
-    features:
-      - "secure"
-    files:
-      - name: "prometheus-v3"
-        path: "prometheus/prometheus-config.yml"
-        target: "/etc/prometheus/prometheus.yml"
-        overwrite: true
-    networks:
-      - name: "common_dev_prometheus"
-        driver: "overlay"
-      - name: "common_prod_prometheus"
-        driver: "overlay"
-    volumes:
-      - type: bind
-        source: /mnt/HC_Volume_6796206/prometheus
-        target: /prometheus
-  grafana:
-    name: grafana
-    image: grafana/grafana
-    internal_port: 3000
-    environments:
-      - "{{ environments.dev }}"
-    constraints:
-      - "node.role == worker"
-      - "node.labels.purpose == build"
-    features:
-      - "secure"
-    volumes:
-      - type: bind
-        source: /mnt/HC_Volume_6796206/grafana
-        target: /var/lib/grafana
   cadvisor:
     name: cadvisor
     template_name: "cadvisor"

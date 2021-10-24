@@ -10,15 +10,7 @@ services:
     command:
       - "--docker_only"
       - "--disable_metrics=disk,tcp,udp"
-    networks:
-      - "common_dev_prometheus"
-      - "common_prod_prometheus"
     ports:
       - "9080:8080"
     deploy:
       mode: global
-networks:
-  common_dev_prometheus:
-    external: true
-  common_prod_prometheus:
-    external: true
