@@ -7,7 +7,7 @@ service_definitions:
     environments:
       - "{{ environments.prod }}"
     files:
-      - name: "traefik/acme.json"
+      - path: "traefik/acme.json"
         overwrite: false
         mode: "0600"
     networks:
@@ -15,20 +15,6 @@ service_definitions:
         driver: "overlay"
       - name: "common_prod_traefik"
         driver: "overlay"
-  visualizer:
-    name: visualizer
-    image: dockersamples/visualizer
-    internal_port: 8080
-    environments:
-      - "{{ environments.prod }}"
-    constraints:
-      - "node.role == manager"
-    volumes:
-      - type: bind
-        source: /var/run/docker.sock
-        target: /var/run/docker.sock
-    features:
-      - "secure"
   record_jar_converter:
     name: record_jar_converter
     image: postremus/record-jar-converter-web
@@ -37,23 +23,8 @@ service_definitions:
       - "{{ environments.prod }}"
       - "{{ environments.dev }}"
     constraints:
-      - "node.role == worker"
+      - "node.role == manager"
       - "node.labels.purpose == stateless"
-    features:
-      - "secure"
-  jwt:
-    name: jwt
-    image: postremus/github-jwt-integration-web
-    internal_port: 8080
-    environments:
-      - "{{ environments.dev }}"
-    constraints:
-      - "node.role == worker"
-      - "node.labels.purpose == stateless"
-    secrets:
-      - source: "DEV_TOKEN_KEY_SECRET"
-        target: "token.key.secret"
-        env: "dev"
     features:
       - "secure"
   json:
@@ -64,7 +35,7 @@ service_definitions:
       - "{{ environments.prod }}"
       - "{{ environments.dev }}"
     constraints:
-      - "node.role == worker"
+      - "node.role == manager"
       - "node.labels.purpose == stateless"
     features:
       - "secure"
@@ -76,39 +47,10 @@ service_definitions:
       - "{{ environments.prod }}"
       - "{{ environments.dev }}"
     constraints:
-      - "node.role == worker"
+      - "node.role == manager"
       - "node.labels.purpose == stateless"
     features:
       - "secure"
-  jenkins:
-    name: jenkins
-    image: postremus/images_jenkins
-    internal_port: 8080
-    environments:
-      - "{{ environments.dev }}"
-    constraints:
-      - "node.role == worker"
-      - "node.labels.purpose == build"
-    features:
-      - "secure"
-    volumes:
-      - type: volume
-        source: jenkins-data
-        target: /var/jenkins_home
-      - type: volume
-        source: jenkins-m2
-        target: /data/maven
-      - type: bind
-        source: /root/id_rsa_docker
-        target: /var/jenkins_home/.ssh/id_rsa
-      - type: bind
-        source: /var/run/docker.sock
-        target: /var/run/docker.sock
-    named_volumes:
-      - name: jenkins-data
-        driver: local
-      - name: jenkins-m2
-        driver: local
   cadvisor:
     name: cadvisor
     template_name: "cadvisor"

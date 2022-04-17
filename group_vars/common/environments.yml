@@ -7,17 +7,14 @@ environments:
     group: common-prod
     versions:
       record_jar_converter: "1.6.0"
-      visualizer: "stable"
       traefik: "v1.7.21"
       json: "1.0.4"
       xml: "1.0.0"
       cadvisor: "latest"
     replicas:
-      visualizer: 1
       traefik: 1
     frontend_rules:
       record_jar_converter: "Host:record-jar-converter.pro-crafting.com"
-      visualizer: "Host:visualizer.pro-crafting.com"
       traefik: "Host:monitor.pro-crafting.com"
       json: "Host:json.pro-crafting.com"
       xml: "Host:xml.pro-crafting.com,xmlpretty.com,xmlpretty.de"
@@ -28,22 +25,13 @@ environments:
     group: common
     versions:
       record_jar_converter: "latest"
-      jwt: "latest"
       json: "latest"
       xml: "latest"
-      jenkins: "1.1.8"
-      visualizer: "stable"
       traefik: "v1.7.21"
     replicas:
-      json: 1
-      jenkins: 1
-      visualizer: 1
       traefik: 1
     frontend_rules:
       record_jar_converter: "Host:record-jar-converter.dev.pro-crafting.com"
-      jwt: "Host:jwt.dev.pro-crafting.com;PathPrefix:/jwt-api/v1,/openapi,/swagger-ui"
       json: "Host:json.dev.pro-crafting.com"
       xml: "Host:xml.dev.pro-crafting.com"
-      jenkins: "Host:jenkins.build.pro-crafting.com"
-      visualizer: "Host:visualizer.dev.pro-crafting.com"
       traefik: "Host:monitor.dev.pro-crafting.com"

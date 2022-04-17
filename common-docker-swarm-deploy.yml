@@ -3,10 +3,7 @@
   user: docker
   roles:
     - { role: deploy-stack, vars: {service: "{{ service_definitions.traefik }}"}, tags: ["deploy", "traefik"] }
-    - { role: deploy-stack, vars: {service: "{{ service_definitions.visualizer }}"}, tags: ["deploy", "visualizer"] }
     - { role: deploy-stack, vars: {service: "{{ service_definitions.record_jar_converter }}"}, tags: ["deploy", "rjc"] }
-    - { role: deploy-stack, vars: {service: "{{ service_definitions.jwt }}"}, tags: ["deploy", "jwt"] }
     - { role: deploy-stack, vars: {service: "{{ service_definitions.json }}"}, tags: ["deploy", "json"] }
     - { role: deploy-stack, vars: {service: "{{ service_definitions.xml }}"}, tags: ["deploy", "xml"] }
-    - { role: deploy-stack, vars: {service: "{{ service_definitions.jenkins }}"}, tags: ["deploy", "jenkins"] }
     - { role: deploy-stack, vars: {service: "{{ service_definitions.cadvisor }}"}, tags: ["deploy", "cadvisor"] }
