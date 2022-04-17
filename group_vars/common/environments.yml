@@ -7,7 +7,7 @@ environments:
     group: common-prod
     versions:
       record_jar_converter: "1.6.0"
-      traefik: "v1.7.21"
+      traefik: "v1.7.34"
       json: "1.0.4"
       xml: "1.0.0"
       cadvisor: "latest"
