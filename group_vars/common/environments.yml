@@ -8,7 +8,7 @@ environments:
     versions:
       record_jar_converter: "1.6.0"
       traefik: "v1.7.34"
-      json: "1.0.4"
+      json: "1.1.2"
       xml: "1.0.0"
       cadvisor: "latest"
     replicas:
@@ -16,8 +16,8 @@ environments:
     frontend_rules:
       record_jar_converter: "Host:record-jar-converter.pro-crafting.com"
       traefik: "Host:monitor.pro-crafting.com"
-      json: "Host:json.pro-crafting.com"
-      xml: "Host:xml.pro-crafting.com,xmlpretty.com,xmlpretty.de"
+      json: "Host:json.pro-crafting.com,jsonprettyprint.de"
+      xml: "Host:xml.pro-crafting.com,xmlpretty.com,xmlpretty.de,xmlprettyprint.de,xmlprettyprint.net"
   dev:
     name: dev
     stack: common_dev
